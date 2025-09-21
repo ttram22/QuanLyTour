@@ -41,4 +41,3 @@ Password:
 6. Sửa thông tin tour
 7. Xóa tour
 8. Đăng xuất
-Lựa chọn:
