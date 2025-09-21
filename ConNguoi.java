@@ -6,6 +6,8 @@ public class ConNguoi {
     private String gioitinh;
     private String diachi;
     private int sodienthoai;
-    
+
+    public ConNguoi() {
+        hoten = "";
     
 }
