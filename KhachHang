@@ -1,0 +1,77 @@
+package QuanLyTour;
+
+import static QuanLyTour.Input.sc;
+public class KhachHang extends ConNguoi {
+    protected String makh;
+
+    public KhachHang() {
+        super();
+        makh = "";
+    }
+    public KhachHang(String makh, String hoten, int tuoi, String gioitinh, int sdt) {
+        super(hoten, tuoi, gioitinh, sdt);
+        this.makh = makh;
+    }
+
+    // getter
+    public String gethoten() {
+        return hoten;
+    }
+    public int gettuoi() {
+        return tuoi;
+    }
+    public String getgioitinh() {
+        return gioitinh;
+    }
+    public String getdiachi() {
+        return diachi;
+    }
+    public int getsdt() {
+        return sdt;
+    }
+
+    // setter
+    public void sethoten(String hoten) {
+        this.hoten = hoten;
+    }
+    public void settuoi(int tuoi) {
+        this.tuoi = tuoi;
+    }
+    public void setgioitinh(String gioitinh) {
+        this.gioitinh = gioitinh;
+    }   
+    public void setdiachi(String diachi) {
+        this.diachi = diachi;
+    }
+    public void setsdt(int sdt) {
+        this.sdt = sdt;
+    }
+
+    public void DangKyTour(DanhSachTour danhSachTour, DanhSachDatTour dsDatTour) {
+        System.out.println("===== DANG KY TOUR =====");
+        System.out.print("Nhap ma tour can dang ky: ");
+        String maTour = sc.nextLine();
+
+        boolean found = false;
+        for (Tour t : danhSachTour.dsTour) {
+            if (t.getmatour().equals(maTour)) {
+                System.out.println("Da tim thay tour: " + t.getmatour());
+                System.out.println("Nhap ho va ten cua ban: "); hoten = sc.nextLine();
+                System.out.println("Nhap tuoi cua ban: "); tuoi = sc.nextInt(); 
+                sc.nextLine();
+                System.out.println("Nhap gioi tinh cua ban: "); gioitinh = sc.nextLine();      
+                System.out.println("Nhap so dien thoai cua ban: "); sdt = sc.nextInt(); 
+                System.out.println("Nhap ngay dang ky tour (dd/mm/yyyy): "); String ngayDat = sc.nextLine();
+                DatTour dt = new DatTour(this, t, ngayDat);
+                dsDatTour.them(dt);
+                found = true;
+                break;
+            }
+        }
+        if (!found) {
+            System.out.println("Khong tim thay tour co ma: " + maTour);
+            return;
+        }
+        System.out.println("Ban da dang ky tour thanh cong.");
+    }
+}
