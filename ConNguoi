@@ -1,0 +1,23 @@
+package QuanLyTour;
+
+public class ConNguoi {
+    protected String hoten;
+    protected int tuoi;
+    protected String gioitinh;
+    protected String diachi;
+    protected int sdt;
+    
+    public ConNguoi() {
+        hoten = "";
+        tuoi = 0;
+        gioitinh = "";
+        diachi = "";
+        sdt = 0;
+    }
+    public ConNguoi(String hoten, int tuoi, String gioitinh, int sdt) {
+        this.hoten = hoten;
+        this.tuoi = tuoi;
+        this.gioitinh = gioitinh;
+        this.sdt = sdt;
+    }
+}
