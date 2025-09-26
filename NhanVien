@@ -1,0 +1,48 @@
+package QuanLyTour;
+
+public class NhanVien extends ConNguoi {
+    protected String manv;
+
+    public NhanVien() {
+        super();
+        manv = "";
+    }
+    public NhanVien(String manv, String hoten, int tuoi, String gioitinh, int sdt) {
+        super(hoten, tuoi, gioitinh, sdt);
+        this.manv = manv;
+    }
+
+    // getter
+    public String gethoten() {
+        return hoten;
+    }
+    public int gettuoi() {
+        return tuoi;
+    }
+    public String getgioitinh() {
+        return gioitinh;
+    }
+    public String getdiachi() {
+        return diachi;
+    }
+    public int getsdt() {
+        return sdt;
+    }
+
+    // setter
+    public void sethoten(String hoten) {
+        this.hoten = hoten;
+    }
+    public void settuoi(int tuoi) {
+        this.tuoi = tuoi;
+    }
+    public void setgioitinh(String gioitinh) {
+        this.gioitinh = gioitinh;
+    }   
+    public void setdiachi(String diachi) {
+        this.diachi = diachi;
+    }
+    public void setsdt(int sdt) {
+        this.sdt = sdt;
+    }
+}
