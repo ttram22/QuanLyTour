@@ -2,7 +2,7 @@ package QuanLyTour;
 import java.util.Scanner;
 
 public class MenuManageTour {
-      public static final int WIDTH = 60;
+      public static final int WIDTH = 80;
 
       public static void main(String[] args ){
             Scanner sc = new Scanner(System.in);
