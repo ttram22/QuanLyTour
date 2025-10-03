@@ -23,12 +23,18 @@ public class MenuManageTour {
                   sc.nextLine();
                   
                   switch (choice) {
+                        case 0: 
+                              break;
                         case 1:
-                              GuessMenu.showMenu(sc);
+                              showGuessMenu(sc);
                               break;
                         case 2:
-                              StaffMenu.showMenu(sc);
+                              showStaffMenu(sc);
                               break;
+                        default:
+                              System.out.println("*".repeat(WIDTH/3) + " Bạn đã nhập sai " + "*".repeat(WIDTH/3));
+                              System.out.println("Vui lòng chọn đúng là nhân viên hoặc khách hàng hoặc lựa chọn thoát!");
+                              System.out.println();
                   }
             }while(choice != 0);
 
@@ -163,6 +169,8 @@ public class MenuManageTour {
                         // code register for tour 
                         break;
                   default:
+                        System.out.println();
+                        System.out.println("*".repeat(WIDTH/3) +" Lựa chọn không hợp lệ, vui lòng thử lại." + "*".repeat(WIDTH/3));
             }
       }while(choice != 0);
 }
@@ -178,12 +186,14 @@ public class MenuManageTour {
                   System.out.println("2. Tìm kiếm theo tên tour");
                   System.out.println("3. Tìm kiếm theo khoảng giá");
                   System.out.println("4. Tìm kiếm theo loại tour (trong nước/quốc tế)");
-                  System.out.println("5. Thoát (quay lại menu Khách hàng)");
+                  System.out.println("0. Thoát");
                   System.out.println("Lựa chọn: ");
                   choice = sc.nextInt();
                   sc.nextLine();
 
                   switch (choice) {
+                        case 0: 
+                              break;
                         case 1:
                               // code find by id tour 
                               break;
@@ -196,7 +206,10 @@ public class MenuManageTour {
                         case 4:
                               // code find by type
                               break;
+                        default:
+                              System.out.println();
+                              System.out.println("*".repeat(WIDTH/3) +" Lựa chọn không hợp lệ, vui lòng thử lại." + "*".repeat(WIDTH/3));
                   }
-            }while(choice != 5);
+            }while(choice != 0);
       }
 }
