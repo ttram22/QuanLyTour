@@ -1,0 +1,6 @@
+TQT001, Tham quan bao tang Lighting Art va vuon khinh khi cau, TPHCM, 05/10/2025, 8/10/2025, 5000000.0, Chau luc: Chau A, Quoc gia: Thai Lan
+TQT002, Check in Paboon Cafe va Bubble in the Forest Cafe, HaNoi, 25/10/2025, 29/10/2025, 8000000.0, Chau luc: Chau A, Quoc gia: Thai Lan
+TQT003, Check in thap Giza, HaNoi, 22/11/2025, 27/11/2025, 2.0E7, Chau luc: Chau Au, Quoc gia: Y
+TTN001, Vuon hoa Da Lat, Ca Mau, 19/11/2025, 22/11/2025, 4000000.0, Mien: Trung, Tinh: Lam Dong
+TTN001, Treo do loi suoi bang rung, TPHCM, 11/10/2025, 19/10/2025, 1.0E7, Mien: Bac, Tinh: Cao Bang
+TTN003, Tam bien Phu Quoc, Dak Lak, 22/11/2025, 27/11/2025, 9000000.0, Mien: Nam, Tinh: An Giang
