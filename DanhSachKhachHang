@@ -1,0 +1,150 @@
+package QuanLyTour;
+
+import java.util.ArrayList;
+import java.io.FileWriter;
+import java.io.BufferedReader;
+import java.io.FileReader;
+
+import static QuanLyTour.Input.sc;
+public class DanhSachKhachHang implements QuanLy<KhachHang> {
+    ArrayList<KhachHang> dskh = new ArrayList<>();
+    
+    public void xuatdanhsach() {
+        System.out.println("==== DANH SACH KHACH HANG ====");
+        for (KhachHang kh : dskh) {
+            System.out.println(kh);
+        }
+    }
+    public void them(KhachHang kh) {
+        dskh.add(kh);
+        ghifile();
+        System.out.println("Them khach hang thanh cong!");
+    }
+    public void xoa(String makh) {
+        for (KhachHang kh : dskh) {
+            if (kh.getmakh().equals(makh)) {
+                dskh.remove(kh);
+                ghifile();
+                System.out.println("Xoa khach hang thanh cong!");
+                break;
+            }
+            else {
+                System.out.println("Khong tim thay khach hang co ma: " + makh);
+            }
+        }          
+    }
+    public void sua(String makh) {
+        for (KhachHang kh : dskh) {
+            if (kh.getmakh().equals(makh)) {
+                System.out.println("Chon thong tin muon sua:");
+                System.out.println("1. Ho ten");
+                System.out.println("2. Gioi tinh");
+                System.out.println("3. Tuoi");
+                System.out.println("4. So dien thoai");
+                System.out.print("Nhap lua chon: "); int choice = sc.nextInt();
+                sc.nextLine(); // Bo qua dong enter
+
+                switch (choice) {
+                    case 1:
+                        System.out.print("Nhap ho ten moi: ");
+                        String hoten = sc.nextLine();
+                        kh.sethoten(hoten);
+                        ghifile();
+                        break;
+                    case 2:
+                        System.out.print("Nhap gioi tinh moi: ");
+                        String gioitinh = sc.nextLine();
+                        kh.setgioitinh(gioitinh);
+                        ghifile();
+                        break;
+                    case 3:
+                        System.out.print("Nhap tuoi moi: ");
+                        int tuoi = sc.nextInt();
+                        kh.settuoi(tuoi);
+                        ghifile();
+                        break;
+                    case 4:
+                        System.out.print("Nhap so dien thoai moi: ");
+                        int sdt = sc.nextInt();
+                        kh.setsdt(sdt);
+                        ghifile();
+                        break;
+                    default:
+                        System.out.println("Lua chon khong hop le.");
+                        return;
+                }
+            }
+        }
+        System.out.println("Khong tim thay khach hang co ma: " + makh);
+    }
+    public KhachHang timkiem(String makh) {
+        for (KhachHang kh : dskh) {
+            if (kh.getmakh().equals(makh)) 
+                return kh;
+        }
+        return null;
+    }
+    
+    //  TÌM KIẾM NÂNG CAO
+    public KhachHang timkiemten(String ten) {
+        for (KhachHang kh : dskh) {
+            if (kh.gethoten().equalsIgnoreCase(ten)) 
+                return kh;
+            
+        }
+        return null;
+    }
+    public KhachHang timkiemsdt(int sdt) {
+        for (KhachHang kh : dskh) {
+            if (kh.getsdt() == (sdt))
+                return kh;
+        }
+        return null;
+    }
+
+    public void docfile() {
+        try { 
+            BufferedReader read = new BufferedReader(new FileReader("D:\\JAVA\\OOP\\QuanLyTour\\DanhSachKhachHang.txt"));
+            String line;
+
+            while ((line = read.readLine()) != null) {
+                String[] parts = line.split(",");
+                // Loại bỏ khoảng trắng dư
+                for (int i=0; i<parts.length; i++) {
+                    parts[i] = parts[i].trim();
+                }
+
+                if (parts.length == 5) {
+                    String makh = parts[0];
+                    String hoten = parts[1];
+                    String gioitinh = parts[2];
+                    int tuoi = Integer.parseInt(parts[3]);
+                    int sdt = Integer.parseInt(parts[4]);
+
+                    KhachHang kh = new KhachHang(makh, hoten, gioitinh, tuoi, sdt);
+                    dskh.add(kh);
+                }
+            }
+            read.close();
+        } 
+        catch (Exception e) {
+            System.out.println("Loi khi doc file: " + e);
+        }
+    }
+    public void ghifile() {
+        try {
+            FileWriter fw = new FileWriter("D:\\JAVA\\OOP\\QuanLyTour\\DanhSachKhachHang.txt");
+            for (KhachHang kh : dskh) {
+                fw.write(kh.getmakh() + ", "
+                        + kh.gethoten() + ", "
+                        + kh.getgioitinh() + ", "
+                        + kh.gettuoi() + ", "
+                        + kh.getsdt() + "\n");
+            }
+            fw.close();
+        } 
+        catch (Exception e) {
+            System.out.println("Loi khi ghi file: " + e);
+        }
+    }
+}
