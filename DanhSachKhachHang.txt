@@ -1,0 +1,12 @@
+KH001, Nguyen Van A, nam, 25, 904474567
+KH002, Tran Thi B, nu, 30, 912399678
+KH003, Le Van C, nam, 22, 922456119
+KH004, Nguyen Van D, nam, 25, 907776567
+KH005, Tran Thi E, nu, 30, 932399678
+KH006, Le Van G, nam, 22, 92556789
+KH007, Nguyen Van A, nam, 25, 907274567
+KH008, Tran Thi K, nu, 30, 912079678
+KH009, Le Van C, nam, 22, 922456719
+KH010, Nguyen Van H, nam, 25, 907774567
+KH011, Tran Thi S, nu, 30, 912391178
+KH012, Tran Thi C, nam, 22, 922456789
