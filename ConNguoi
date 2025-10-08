@@ -1,17 +1,16 @@
 package QuanLyTour;
 
-public class ConNguoi {
-    protected String hoten;
-    protected int tuoi;
-    protected String gioitinh;
-    protected String diachi;
-    protected int sdt;
-    
+import static QuanLyTour.Input.sc;
+public abstract class ConNguoi {
+    private String hoten;
+    private int tuoi;
+    private String gioitinh;
+    private int sdt;
+
     public ConNguoi() {
         hoten = "";
         tuoi = 0;
         gioitinh = "";
-        diachi = "";
         sdt = 0;
     }
     public ConNguoi(String hoten, int tuoi, String gioitinh, int sdt) {
@@ -20,4 +19,51 @@ public class ConNguoi {
         this.gioitinh = gioitinh;
         this.sdt = sdt;
     }
+
+    public String toString() {
+        return hoten + ", "+ gioitinh + ", " + tuoi + ", " + sdt;
+    }
+
+    // getter
+    public String gethoten() {
+        return hoten;
+    }
+    public int gettuoi() {
+        return tuoi;
+    }
+    public String getgioitinh() {
+        return gioitinh;
+    }
+    public int getsdt() {
+        return sdt;
+    }
+
+    // setter
+    public void sethoten(String hoten) {
+        this.hoten = hoten;
+    }
+    public void settuoi(int tuoi) {
+        this.tuoi = tuoi;
+    }
+    public void setgioitinh(String gioitinh) {
+        this.gioitinh = gioitinh;
+    }   
+    public void setsdt(int sdt) {
+        this.sdt = sdt;
+    }
+
+    public void nhap() {
+        System.out.print("Nhap ho ten: "); sethoten(sc.nextLine());
+        System.out.print("Nhap gioi tinh: "); setgioitinh(sc.nextLine());
+        System.out.print("Nhap tuoi: "); settuoi(Integer.parseInt(sc.nextLine()));
+        System.out.print("Nhap so dien thoai: "); setsdt(Integer.parseInt(sc.nextLine()));
+    }
+
+    public void xuat() {
+        System.out.println("Ho ten: " + gethoten());
+        System.out.println("Gioi tinh: " + getgioitinh());
+        System.out.println("Tuoi: " + gettuoi());
+        System.out.println("So dien thoai: " + getsdt());
+    }
+ 
 }
