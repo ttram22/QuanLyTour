@@ -34,8 +34,10 @@ public class DanhSachKhachHang implements QuanLy<KhachHang> {
         }          
     }
     public void sua(String makh) {
+        boolean found = false;
         for (KhachHang kh : dskh) {
-            if (kh.getmakh().equals(makh)) {
+            if (kh.getmakh().equalsIgnoreCase(makh)) {
+                found = true;
                 System.out.println("Chon thong tin muon sua:");
                 System.out.println("1. Ho ten");
                 System.out.println("2. Gioi tinh");
@@ -48,26 +50,47 @@ public class DanhSachKhachHang implements QuanLy<KhachHang> {
                     case 1:
                         System.out.print("Nhap ho ten moi: ");
                         String hoten = sc.nextLine();
-                        kh.sethoten(hoten);
-                        ghifile();
+                        if (kh.gethoten().equals(hoten)) {
+                            System.out.println("Thong tin moi phai khac thong tin cu.");
+                            return;
+                        }
+                        else {
+                            kh.sethoten(hoten);
+                            ghifile();
+                        }
                         break;
                     case 2:
                         System.out.print("Nhap gioi tinh moi: ");
                         String gioitinh = sc.nextLine();
-                        kh.setgioitinh(gioitinh);
-                        ghifile();
+                        if (kh.getgioitinh().equals(gioitinh)) {
+                            System.out.println("Thong tin moi phai khac thong tin cu.");
+                        }
+                        else {
+                            kh.setgioitinh(gioitinh);
+                            ghifile();
+                        }
                         break;
                     case 3:
                         System.out.print("Nhap tuoi moi: ");
                         int tuoi = sc.nextInt();
-                        kh.settuoi(tuoi);
-                        ghifile();
+                        if (kh.gettuoi() == tuoi) {
+                            System.out.println("Thong tin moi phai khac thong tin cu.");
+                        }
+                        else {
+                            kh.settuoi(tuoi);
+                            ghifile();
+                        }
                         break;
                     case 4:
                         System.out.print("Nhap so dien thoai moi: ");
                         int sdt = sc.nextInt();
-                        kh.setsdt(sdt);
-                        ghifile();
+                        if (kh.getsdt() == sdt) {
+                            System.out.println("Thong tin moi phai khac thong tin cu.");
+                        }
+                        else {
+                            kh.setsdt(sdt);
+                            ghifile();
+                        }
                         break;
                     default:
                         System.out.println("Lua chon khong hop le.");
@@ -75,11 +98,14 @@ public class DanhSachKhachHang implements QuanLy<KhachHang> {
                 }
             }
         }
-        System.out.println("Khong tim thay khach hang co ma: " + makh);
+        if (!found)
+            System.out.println("Khong tim thay khach hang co ma: " + makh);
+        else 
+            System.out.println("Sua thong tin khach hang thanh cong!");
     }
     public KhachHang timkiem(String makh) {
         for (KhachHang kh : dskh) {
-            if (kh.getmakh().equals(makh)) 
+            if (kh.getmakh().equalsIgnoreCase(makh)) 
                 return kh;
         }
         return null;
