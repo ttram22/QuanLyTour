@@ -1,0 +1,339 @@
+package QuanLyTour;
+import java.util.Scanner;
+import java.util.ArrayList;
+
+public class _MenuManageTour {
+      public static final int WIDTH = 80;
+      static DanhSachKhachHang dskh = new DanhSachKhachHang();
+      static DanhSachNhanVien dsnv = new DanhSachNhanVien();
+      static DanhSachTour dstour = new DanhSachTour();
+      static DanhSachDatTour dsdattour = new DanhSachDatTour(dstour, dskh); 
+
+      public static void main(String[] args ) {
+            Scanner sc = new Scanner(System.in);
+            dskh.docfile();
+            dsnv.docfile();
+            dstour.docfile();
+            dsdattour.docfile();
+            
+            String title = "MENU";
+
+            int choice;
+            // create Menu choice, if input = 0 => out Menu 
+            do {
+                  printCenterTitle(title, WIDTH);
+                  System.out.println("Ban la:");
+                  System.out.println("1. Khach hang");
+                  System.out.println("2. Nhan vien");
+                  System.out.println("0. Thoat");
+                  System.out.print("Lua chon: ");
+                  choice = sc.nextInt();
+                  sc.nextLine();
+                  
+                  switch (choice) {
+                        case 0: 
+                              break;
+                        case 1:
+                              showGuessMenu(sc);
+                              break;
+                        case 2:
+                              showStaffMenu(sc);
+                              break;
+                        default:
+                              System.out.println("*".repeat(WIDTH/3) + " Ban da nhap sai. " + "*".repeat(WIDTH/3));
+                              System.out.println("Vui long chon dung la nhan vien hoac khach hang hoac lua chon thoat!");
+                              System.out.println();
+                  }
+            }
+            while(choice != 0);
+            sc.close();
+      }
+      
+      public static void printCenterTitle(String title, int width){
+            // total of char need to add left and right 
+            int totalPadding = width - title.length();
+            int left = totalPadding / 2;
+            int right = totalPadding - left;
+            System.out.println("=".repeat(left) + " " + title + " " + "=".repeat(right));
+      }
+
+      public static void showStaffMenu(Scanner sc){
+            _AuthService auth = new _AuthService();
+            int WIDTH = _MenuManageTour.WIDTH;
+
+            String title = "MENU NHAN VIEN";
+
+            // login loop 
+            boolean logged = false;
+            while(!logged){
+                  _MenuManageTour.printCenterTitle(title, WIDTH);
+                  System.out.println("DANG NHAP");
+                  System.out.print("Username:");
+                  String Username = sc.nextLine();
+                  System.out.print("Password:");
+                  String Password = sc.nextLine();
+
+                  if(auth.login(Username, Password)){
+                        logged = true;
+                        System.out.println("Dang nhap thanh cong!");
+                        staffmenu(sc);
+                  }
+                  else {
+                        // check account against
+                        System.out.println("*".repeat(WIDTH/3) + "Ban da nhap sai tai khoan hoac mat khau!" + "*".repeat(WIDTH/3));
+                        System.out.println("Vui long lua chon\nNhan phim 1 de dang nhap lai hoac nhan phim bat ky de thoat.");
+                        String tmp = "";
+                        tmp = sc.nextLine();
+                        if(tmp.equals("1")) {
+                              System.out.println("Da chon dang nhap lai tai khoan!");
+                        }
+                        else break;
+                  }
+            }
+      }
+
+      public static void staffmenu(Scanner sc) {
+            int WIDTH = _MenuManageTour.WIDTH;
+
+            int choice;
+            String titleStaffMenu = "Hien dang trong tai khoan nhan vien, vui long chon:";
+            do {
+                  _MenuManageTour.printCenterTitle(titleStaffMenu, WIDTH);
+                  System.out.println("1. Xem danh sach khach hang");
+                  System.out.println("2. Them khach hang moi");
+                  System.out.println("3. Sua thong tin khach hang");
+                  System.out.println("4. Xoa khach hang");
+                  System.out.println("5. Tim kiem khach hang");
+                  System.out.println("6. Xem danh sach tour");
+                  System.out.println("7. Them tour moi");
+                  System.out.println("8. Sua thong tin tour");
+                  System.out.println("9. Xoa tour");
+                  System.out.println("10. Tim kiem tour");
+                  System.out.println("11. Xem danh sach dat tour");
+                  System.out.println("0. Dang xuat");
+                  System.out.print("Lua chon: "); choice = sc.nextInt(); sc.nextLine();
+
+                  switch (choice) {
+                        case 0: 
+                              System.out.println("Dang xuat thanh cong!");
+                              return;
+                        case 1:     
+                              dskh.xuatdanhsach(); 
+                              break;
+                        case 2:
+                              KhachHang kh = new KhachHang();
+                              kh.nhap();
+                              dskh.them(kh);
+                              break;
+                        case 3:
+                              System.out.print("Nhap ma khach hang muon sua: "); String makhsua = sc.nextLine();
+                              dskh.sua(makhsua);
+                              break;
+                        case 4:
+                              System.out.print("Nhap ma khach hang muon xoa: "); String makhxoa = sc.nextLine(); 
+                              dskh.xoa(makhxoa);                            
+                              break;
+                        case 5:
+                              int choicefind;
+                              do {
+                                    System.out.println("Chon cach tim kiem:");
+                                    System.out.println("1. Tim kiem theo ma\n2. Tim kiem theo ten\n3. Tim kiem theo sdt\n0.Thoat");
+                                    System.out.print("Lua chon: "); choicefind = sc.nextInt(); sc.nextLine();
+
+                                    switch(choicefind) {
+                                          case 1:
+                                                System.out.print("Nhap ma khach hang can tim kiem: "); String makhtimkiem = sc.nextLine(); 
+                                                makhtimkiem = makhtimkiem.trim().replaceAll("\\s+", " ");
+                                                kh = dskh.timkiem(makhtimkiem); 
+                                                if (kh != null)
+                                                      System.out.println(kh);
+                                                else 
+                                                      System.out.println("Khong tim thay khach hang ma " + makhtimkiem);
+                                                break;
+                                          case 2:
+                                                System.out.print("Nhap ten khach hang can tim kiem: "); String tenkhtimkiem = sc.nextLine(); tenkhtimkiem = tenkhtimkiem.trim().replaceAll("\\s+", " ");
+                                                kh = dskh.timkiemten(tenkhtimkiem);
+                                                if (kh != null)
+                                                      System.out.println(kh);
+                                                else 
+                                                      System.out.println("Khong tim thay khach hang ma " + tenkhtimkiem);
+                                                break;
+                                          case 3:
+                                                System.out.print("Nhap sdt khach hang can tim kiem: "); int sdtkhtimkiem = sc.nextInt(); sc.nextLine();
+                                                kh = dskh.timkiemsdt(sdtkhtimkiem);
+                                                if (kh != null)
+                                                      System.out.println(kh);
+                                                else 
+                                                      System.out.println("Khong tim thay khach hang ma " + sdtkhtimkiem);
+                                                break;
+                                          case 0:
+                                                break;
+                                          default:
+                                                System.out.println("Lua chon khong hop le. Vui long chon lai");
+                                    }
+                              }
+                              while (choicefind != 0);
+                              break;
+                        case 6:
+                              dstour.xuatdanhsach();
+                              break;
+                        case 7:
+                              int choicethem; 
+                              do {
+                                    System.out.println("Chon loai tour muon them:\n1. Tour trong nuoc\n2. Tour quoc te\n0. Thoat");
+                                    System.out.print("Lua chon: "); choicethem = sc.nextInt(); sc.nextLine();
+
+                                    switch (choicethem) {
+                                          case 1:
+                                                TourTrongNuoc ttn = new TourTrongNuoc();
+                                                ttn.nhap();
+                                                dstour.them(ttn);
+                                                break;
+                                          case 2:
+                                                TourQuocTe tqt = new TourQuocTe();
+                                                tqt.nhap();
+                                                dstour.them(tqt);
+                                                break;
+                                          case 0:
+                                                break;
+                                          default:
+                                                System.out.print("Lua chon khong hop le. Vui long chon lai:");
+                                    }
+                              }
+                              while (choicethem != 0);
+                              break;
+                        case 8:
+                              System.out.print("Nhap ma cua tour can sua thong tin: "); String masua = sc.nextLine(); masua = masua.trim().replaceAll("\\s+", " ");
+                              dstour.sua(masua); 
+                              break;
+                        case 9:
+                              System.out.print("Nhap ma cua tour muon xoa: "); String maxoa = sc.nextLine();
+                              dstour.xoa(maxoa);
+                              break;
+                        case 10:
+                              showMenuFindTour(sc);
+                              break;      
+                        case 11:
+                              dsdattour.xuatdanhsach();
+                              break;
+                        default:
+                              System.out.println();
+                              System.out.println("*".repeat(WIDTH/3) +"Lua chon khong hop le. Vui long thu lai." + "*".repeat(WIDTH/3));
+                  }
+            }
+            while(choice != 0);
+      }
+
+      public static void showGuessMenu(Scanner sc) {
+            int choice;
+            String title = "MENU KHACH HANG";
+            int WIDTH = _MenuManageTour.WIDTH;
+
+            do {
+                  _MenuManageTour.printCenterTitle(title, WIDTH);
+                  System.out.println("1. Xem danh sach tour");
+                  System.out.println("2. Tim kiem tour");
+                  System.out.println("3. Dang ky tour");
+                  System.out.println("0. Thoat");
+                  System.out.print("Lua chon: "); choice = sc.nextInt(); sc.nextLine();
+
+                  switch (choice) {
+                        case 0: 
+                              break;
+                        case 1:
+                              int choice1;
+                              do {
+                                    // code view tour list 
+                                    System.out.println("1. Xem danh sach tour trong nuoc");
+                                    System.out.println("2. Xem danh sach tour quoc te");
+                                    System.out.println("0. Thoat");
+                                    System.out.print("Lua chon: "); choice1 = sc.nextInt(); sc.nextLine();
+
+                                    switch (choice1) {
+                                          case 0: 
+                                                break;
+                                          case 1:
+                                                dstour.xuatdanhsachtourtrongnuoc();
+                                                break;
+                                          case 2:
+                                                dstour.xuatdanhsachtourquocte();
+                                                break;
+                                          default:
+                                                System.out.println();
+                                                System.out.println("*".repeat(WIDTH/3) +"Lua chon khong hop le. Vui long thu lai." + "*".repeat(WIDTH/3));
+                                    }
+                              }
+                              while(choice1 != 0);
+                              break;
+                        case 2:
+                              showMenuFindTour(sc);
+                              break;
+                        case 3:
+                              dsdattour.DangKyTour(dskh); 
+                              break;
+                        default:
+                              System.out.println();
+                              System.out.println("*".repeat(WIDTH/3) +" Lua chon khong hop le. Vui long thu lai." + "*".repeat(WIDTH/3));
+                  }
+            }
+            while(choice != 0);
+      }
+
+      public static void showMenuFindTour(Scanner sc) {
+            int choice;
+            String title = "Tim kiem tour";
+            int WIDTH = _MenuManageTour.WIDTH;
+
+            do {
+                  _MenuManageTour.printCenterTitle(title, WIDTH);
+                  System.out.println("1. Tim kiem theo ma tour");
+                  System.out.println("2. Tim kiem theo ten tour");
+                  System.out.println("3. Tim kiem theo khoang gia");
+                  System.out.println("4. Tim kiem theo loai tour (tour trong nuoc/tour quoc te)");
+                  System.out.println("0. Thoat");
+                  System.out.print("Lua chon: "); choice = sc.nextInt(); sc.nextLine();
+
+                  switch (choice) {
+                        case 0: 
+                              break;
+                        case 1:
+                              System.out.print("Nhap ma tour can tim: "); String ma = sc.nextLine();
+                              Tour timma = dstour.timkiem(ma); 
+                              if (timma != null) 
+                                    System.out.println(timma);
+                              else 
+                                    System.out.println("Khong tim thay tour co ma: " + ma);
+                              break;
+                        case 2:
+                              System.out.print("Nhap ten tour can tim: "); String ten = sc.nextLine(); ten = ten.trim().replaceAll("\\s+", " ");
+                              Tour timten = dstour.timkiemten(ten); 
+                              if (timten != null) 
+                                    System.out.println(timten);
+                              else 
+                                    System.out.println("Khong tim thay tour co ten: " + ten);
+                              break;
+                        case 3:
+                              System.out.print("Nhap gia thap nhat: "); double min = sc.nextDouble(); sc.nextLine();
+                              System.out.print("Nhap gia cao nhat: "); double max = sc.nextDouble(); sc.nextLine();
+                              Tour timgia = dstour.timkiemgia(min, max); 
+                              if (timgia != null) 
+                                    System.out.println(timgia);
+                              else 
+                                    System.out.println("Khong tim thay tour co gia trong khoang tu " + min + " den " + max);
+                              break;
+                        case 4:
+                              System.out.print("Nhap loai tour can tim: "); String loai = sc.nextLine(); loai = loai.trim().replaceAll("\\s+", " ");
+                              ArrayList<Tour> timloai = dstour.timkiemloaitour(loai); 
+                              if (!timloai.isEmpty()) 
+                                    timloai.forEach(System.out::println);
+                              else 
+                                    System.out.println("Khong tim thay tour " + loai + " nao.");
+                              break;
+                        default:
+                              System.out.println();
+                              System.out.println("*".repeat(WIDTH/3) +" Lua chon khong hop le. Vui long thu lai." + "*".repeat(WIDTH/3));
+                  }
+            }
+            while(choice != 0);
+      }
+}
