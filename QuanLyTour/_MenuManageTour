@@ -142,7 +142,8 @@ public class _MenuManageTour {
 
                                     switch(choicefind) {
                                           case 1:
-                                                System.out.print("Nhap ma khach hang can tim kiem: "); String makhtimkiem = sc.nextLine();
+                                                System.out.print("Nhap ma khach hang can tim kiem: "); String makhtimkiem = sc.nextLine(); 
+                                                makhtimkiem = makhtimkiem.trim().replaceAll("\\s+", " ");
                                                 kh = dskh.timkiem(makhtimkiem); 
                                                 if (kh != null)
                                                       System.out.println(kh);
@@ -150,7 +151,7 @@ public class _MenuManageTour {
                                                       System.out.println("Khong tim thay khach hang ma " + makhtimkiem);
                                                 break;
                                           case 2:
-                                                System.out.print("Nhap ten khach hang can tim kiem: "); String tenkhtimkiem = sc.nextLine();
+                                                System.out.print("Nhap ten khach hang can tim kiem: "); String tenkhtimkiem = sc.nextLine(); tenkhtimkiem = tenkhtimkiem.trim().replaceAll("\\s+", " ");
                                                 kh = dskh.timkiemten(tenkhtimkiem);
                                                 if (kh != null)
                                                       System.out.println(kh);
@@ -202,7 +203,7 @@ public class _MenuManageTour {
                               while (choicethem != 0);
                               break;
                         case 8:
-                              System.out.print("Nhap ma cua tour can sua thong tin: "); String masua = sc.nextLine(); 
+                              System.out.print("Nhap ma cua tour can sua thong tin: "); String masua = sc.nextLine(); masua = masua.trim().replaceAll("\\s+", " ");
                               dstour.sua(masua); 
                               break;
                         case 9:
