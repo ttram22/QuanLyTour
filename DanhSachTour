@@ -36,8 +36,10 @@ public class DanhSachTour implements QuanLy<Tour> {
         System.out.println("Them tour thanh cong.");
     }
     public void sua(String ma) {
+        boolean found = false;
         for (Tour t : dsTour) {
-            if (t.getmatour().equals(ma)) {
+            if (t.getmatour().equalsIgnoreCase(ma)) {
+                found = true;
                 System.out.println("Chon thong tin muon sua:");
                 System.out.println("1. Ten tour");
                 System.out.println("2. Noi khoi hanh");
@@ -50,36 +52,68 @@ public class DanhSachTour implements QuanLy<Tour> {
                     case 1:
                         System.out.print("Nhap ten tour moi: ");
                         String tenTour = sc.nextLine();
-                        t.settentour(tenTour);
+                        if (t.gettentour().equalsIgnoreCase(tenTour)) {
+                            System.out.println("Thong tin moi phai khac thong tin cu.");
+                        }
+                        else {
+                            t.settentour(tenTour);
+                            ghifile();
+                        }
                         break;
                     case 2:
                         System.out.print("Nhap noi khoi hanh moi: ");
                         String noiKhoiHanh = sc.nextLine();
-                        t.setnoikhoihanh(noiKhoiHanh);
+                        if (t.getnoikhoihanh().equalsIgnoreCase(noiKhoiHanh)) {
+                            System.out.println("Thong tin moi phai khac thong tin cu.");
+                        }
+                        else {
+                            t.setnoikhoihanh(noiKhoiHanh);
+                            ghifile();
+                        }
                         break;
                     case 3:
                         System.out.print("Nhap ngay khoi hanh moi: ");
                         String ngayKhoiHanh = sc.nextLine();
-                        t.setngaykhoihanh(ngayKhoiHanh);
+                        if (t.getngaykhoihanh().equalsIgnoreCase(ngayKhoiHanh)) {
+                            System.out.println("Thong tin moi phai khac thong tin cu.");
+                        }
+                        else {
+                            t.setngaykhoihanh(ngayKhoiHanh);
+                            ghifile();
+                        }
                         break;
                     case 4:
                         System.out.print("Nhap ngay ve moi: ");
                         String ngayVe = sc.nextLine();
-                        t.setngayve(ngayVe);
+                        if (t.getngayve().equalsIgnoreCase(ngayVe)) {
+                            System.out.println("Thong tin moi phai khac thong tin cu.");
+                        }
+                        else {
+                            t.setngayve(ngayVe);
+                            ghifile();
+                        }
                         break;
                     case 5:
                         System.out.print("Nhap gia moi: ");
                         double gia = sc.nextDouble(); sc.nextLine();
-                        t.setgia(gia);
+                        if (t.getgia() == gia) {
+                            System.out.println("Thong tin moi phai khac thong tin cu.");
+                        }
+                        else {
+                            t.setgia(gia);
+                            ghifile();
+                        }
                         break;
                     default:
                         System.out.println("Lua chon khong hop le.");
                         return;
                 }
-            ghifile();  
+            }
         }
+        if (!found)
             System.out.println("Khong tim thay tour co ma: " + ma);
-        }
+        else 
+            System.out.println("Sua thong tin tour thanh cong!");
     }
     public void xoa(String ma) {
         Tour tourXoa = null;
@@ -100,7 +134,7 @@ public class DanhSachTour implements QuanLy<Tour> {
     }
     public Tour timkiem(String ma) {
         for (Tour t : dsTour) {
-            if (t.getmatour().equals(ma)) {
+            if (t.getmatour().equalsIgnoreCase(ma)) {
                 return t;
             }
         }
@@ -123,18 +157,18 @@ public class DanhSachTour implements QuanLy<Tour> {
        return null;
         
     }
-    public Tour timkiemloaitour(String loaitour) {
-        String loai = loaitour.toLowerCase();
+    public ArrayList<Tour> timkiemloaitour(String loai) {
+        ArrayList<Tour> tourtim = new ArrayList<>();
 
         for (Tour t : dsTour) {
-            if ((loai.equals("tour trong nuoc") || loai.equals("tourtrongnuoc")) && t instanceof TourTrongNuoc) {
-                return t;
+            if ((loai.equalsIgnoreCase("tour trong nuoc") || loai.equalsIgnoreCase("tourtrongnuoc")) && t instanceof TourTrongNuoc) {
+                tourtim.add(t);
             }
-            else if ((loai.equals("tour quoc te") || loai.equals("tourquocte")) && t instanceof TourQuocTe) {
-                return t;
-            }    
+            else if ((loai.equalsIgnoreCase("tour quoc te") || loai.equalsIgnoreCase("tourquocte")) && t instanceof TourQuocTe) {
+                tourtim.add(t);
+            }  
         }
-        return null;
+        return tourtim;
     }
 
 
