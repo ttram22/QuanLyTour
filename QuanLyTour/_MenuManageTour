@@ -1,5 +1,6 @@
 package QuanLyTour;
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class _MenuManageTour {
       public static final int WIDTH = 80;
@@ -142,15 +143,27 @@ public class _MenuManageTour {
                                     switch(choicefind) {
                                           case 1:
                                                 System.out.print("Nhap ma khach hang can tim kiem: "); String makhtimkiem = sc.nextLine();
-                                                dskh.timkiem(makhtimkiem); 
+                                                kh = dskh.timkiem(makhtimkiem); 
+                                                if (kh != null)
+                                                      System.out.println(kh);
+                                                else 
+                                                      System.out.println("Khong tim thay khach hang ma " + makhtimkiem);
                                                 break;
                                           case 2:
                                                 System.out.print("Nhap ten khach hang can tim kiem: "); String tenkhtimkiem = sc.nextLine();
-                                                dskh.timkiemten(tenkhtimkiem);
+                                                kh = dskh.timkiemten(tenkhtimkiem);
+                                                if (kh != null)
+                                                      System.out.println(kh);
+                                                else 
+                                                      System.out.println("Khong tim thay khach hang ma " + tenkhtimkiem);
                                                 break;
                                           case 3:
                                                 System.out.print("Nhap sdt khach hang can tim kiem: "); int sdtkhtimkiem = sc.nextInt(); sc.nextLine();
-                                                dskh.timkiemsdt(sdtkhtimkiem);
+                                                kh = dskh.timkiemsdt(sdtkhtimkiem);
+                                                if (kh != null)
+                                                      System.out.println(kh);
+                                                else 
+                                                      System.out.println("Khong tim thay khach hang ma " + sdtkhtimkiem);
                                                 break;
                                           case 0:
                                                 break;
@@ -275,7 +288,7 @@ public class _MenuManageTour {
                   System.out.println("1. Tim kiem theo ma tour");
                   System.out.println("2. Tim kiem theo ten tour");
                   System.out.println("3. Tim kiem theo khoang gia");
-                  System.out.println("4. Tim kiem theo loai tour (trong nuoc/quoc te)");
+                  System.out.println("4. Tim kiem theo loai tour (tour trong nuoc/tour quoc te)");
                   System.out.println("0. Thoat");
                   System.out.print("Lua chon: "); choice = sc.nextInt(); sc.nextLine();
 
@@ -291,12 +304,12 @@ public class _MenuManageTour {
                                     System.out.println("Khong tim thay tour co ma: " + ma);
                               break;
                         case 2:
-                              System.out.print("Nhap ten tour can tim: "); String ten = sc.nextLine();
+                              System.out.print("Nhap ten tour can tim: "); String ten = sc.nextLine(); ten = ten.trim().replaceAll("\\s+", " ");
                               Tour timten = dstour.timkiemten(ten); 
                               if (timten != null) 
                                     System.out.println(timten);
                               else 
-                                    System.out.println("Khong tim thay tour co ma: " + ten);
+                                    System.out.println("Khong tim thay tour co ten: " + ten);
                               break;
                         case 3:
                               System.out.print("Nhap gia thap nhat: "); double min = sc.nextDouble(); sc.nextLine();
@@ -308,10 +321,10 @@ public class _MenuManageTour {
                                     System.out.println("Khong tim thay tour co gia trong khoang tu " + min + " den " + max);
                               break;
                         case 4:
-                              System.out.print("Nhap loai tour can tim: "); String loai = sc.nextLine();
-                              Tour timloai = dstour.timkiemloaitour(loai); 
-                              if (timloai != null) 
-                                    System.out.println(timloai);
+                              System.out.print("Nhap loai tour can tim: "); String loai = sc.nextLine(); loai = loai.trim().replaceAll("\\s+", " ");
+                              ArrayList<Tour> timloai = dstour.timkiemloaitour(loai); 
+                              if (!timloai.isEmpty()) 
+                                    timloai.forEach(System.out::println);
                               else 
                                     System.out.println("Khong tim thay tour " + loai + " nao.");
                               break;
