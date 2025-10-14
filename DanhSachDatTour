@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.io.FileWriter;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
-import java.io.File;
 import java.io.FileReader;
 import java.time.LocalDate;
 
@@ -12,7 +11,7 @@ import static QuanLyTour.Input.sc;
 
 public class DanhSachDatTour  {
     private ArrayList<DatTour> dsdattour = new ArrayList<>();
-    private DanhSachTour dstour; // để tìm Tour khi sửa
+    private DanhSachTour dstour; 
     private DanhSachKhachHang dskh;
     LocalDate today = LocalDate.now();
 
@@ -33,10 +32,10 @@ public class DanhSachDatTour  {
             }
         }
     }
-    public void them(DatTour obj) {
-        dsdattour.add(obj);
+    public void them(DatTour dt) {
+        dsdattour.add(dt);
         ghifile();
-        System.out.println("Them dat tour thanh cong: " + obj.getmadattour());
+        System.out.println("Them dat tour thanh cong: " + dt.getmadattour());
     }
     public void xoa(String ma) {
         DatTour dattourcanxoa = null;
@@ -56,7 +55,7 @@ public class DanhSachDatTour  {
     }
     public DatTour timkiem(String ma) {
         for (DatTour dt : dsdattour) {
-            if (dt.getmadattour().equalsIgnoreCase(ma)) 
+            if (dt.getmadattour().toLowerCase().equals(ma.toLowerCase())) 
                 return dt;
         }
         return null;
@@ -114,38 +113,40 @@ public class DanhSachDatTour  {
     }
 
     public void docfile() {
-        File f = new File("D:\\JAVA\\OOP\\QuanLyTour\\DanhSachDatTour.txt");
-
-        if (!f.exists()) 
-            return;
-
-        try (BufferedReader br = new BufferedReader(new FileReader(f))) {
+        try (BufferedReader br = new BufferedReader(new FileReader("D:\\JAVA\\OOP\\QuanLyTour\\DanhSachDatTour.txt"))) {
             String line;
-            while ((line = br.readLine()) != null) {
-                String[] a = line.split(";");
-                if (a.length >= 4) {
-                    String madattour = a[0].trim();
-                    String makh = a[1].trim();
-                    String matour = a[2].trim();
-                    LocalDate ngay = LocalDate.parse(a[3].trim());
+            ArrayList<DatTour> dshople = new ArrayList<>();
 
-                    KhachHang kh = dskh.timkiem(makh); // tim theo maKH (DanhSachKhachHang phải có timKiem(maKH))
+            while ((line = br.readLine()) != null) {
+                String[] parts = line.split("\\|");
+                if (parts.length >= 4) {
+                    String madattour = parts[0].trim();
+                    String khachHangPart = parts[1].trim();
+                    String tourPart = parts[2].trim();
+                    String ngay = parts[3].trim();
+
+                    String makh = khachHangPart.split("-")[0].trim();
+                    String matour = tourPart.split("-")[0].trim();
+
+                    KhachHang kh = dskh.timkiem(makh);
                     Tour tour = dstour.timkiem(matour);
+
                     if (kh != null && tour != null) {
-                        DatTour dt = new DatTour(madattour, kh, tour, ngay);
-                        dsdattour.add(dt);
+                        DatTour dt = new DatTour(madattour, kh, tour, LocalDate.parse(ngay));
+                        dshople.add(dt);
                     } 
                     else {
-                        // nếu thiếu KH hoặc Tour, bạn có thể tạo KH mới hoặc bỏ qua
-                        System.out.println("Bỏ qua dòng (khong tim thay KH/Tour): " + line);
+                        System.out.println("Da xoa dat tour khong hop le: " + madattour);
                     }
                 }
             }
-        } catch (Exception e) {
+            dsdattour = dshople;
+            ghifile();
+        } 
+        catch (Exception e) {
             System.out.println("Loi doc file: " + e);
         }
     }
-
     public void ghifile() {
         try (BufferedWriter bw = new BufferedWriter(new FileWriter("D:\\JAVA\\OOP\\QuanLyTour\\DanhSachDatTour.txt"))) {
             for (DatTour dt : dsdattour) {
@@ -154,7 +155,7 @@ public class DanhSachDatTour  {
                         + dt.getKhachHang().gethoten() + " | " 
                         + dt.getTour().getmatour() + " - "
                         + dt.getTour().gettentour() + " | "
-                        + dt.getngaydat().toString()); 
+                        + dt.getngaydat().toString() + "\n"); 
             }
         } 
         catch (Exception e) {
