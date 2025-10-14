@@ -1,37 +1,31 @@
 package QuanLyTour;
 
 public abstract class Tour {
-    private String matour;
     private String tentour;
     private String noikhoihanh;
     private String ngaykhoihanh;
     private String ngayve;
-    private double gia;
+    private int gia;
 
     public Tour() {
-        matour = "";
         tentour = "";
         noikhoihanh = "";
         ngaykhoihanh = "";
         gia = 0;
     }
-    public Tour(String matour, String tentour, String noikhoihanh, String ngaykhoihanh, String ngayve, double gia) {
-        this.matour = matour;
+    public Tour(String tentour, String noikhoihanh, String ngaykhoihanh, String ngayve, int gia) {
         this.tentour = tentour;
         this.noikhoihanh = noikhoihanh;
         this.ngaykhoihanh = ngaykhoihanh;
         this.ngayve = ngayve;
         this.gia = gia;
     }
+    
 
     public String toString() {
-        return matour + ", " + tentour + ", " + noikhoihanh + ", " + ngaykhoihanh + ", " + ngayve + ", " + gia;
+        return tentour + ", " + noikhoihanh + ", " + ngaykhoihanh + ", " + ngayve + ", " + gia;
     }
-    
-    // getter
-    public String getmatour() {
-        return matour;
-    }
+    public abstract String getmatour();
     public String gettentour() {
         return tentour;
     }
@@ -44,14 +38,11 @@ public abstract class Tour {
     public String getngayve() {
         return ngayve;
     }
-    public double getgia() {
+    public int getgia() {
         return gia;
     }
 
     // setter
-    public void setmatour(String matour) {
-        this.matour = matour;
-    }
     public String settentour(String tentour) {
         this.tentour = tentour;
         return tentour;
@@ -65,17 +56,16 @@ public abstract class Tour {
     public void setngayve(String ngayve) {
         this.ngayve = ngayve;
     }
-    public double setgia(double gia) {
+    public void setgia(int gia) {
         this.gia = gia;
-        return gia;
     }
 
     public void nhap() {
-        System.out.print("Nhap ma tour: "); setmatour(Input.sc.nextLine());
         System.out.print("Nhap ten tour: "); settentour(Input.sc.nextLine());
         System.out.print("Nhap noi khoi hanh: "); setnoikhoihanh(Input.sc.nextLine());
         System.out.print("Nhap ngay khoi hanh: "); setngaykhoihanh(Input.sc.nextLine());
-        System.out.print("Nhap gia: "); setgia(Double.parseDouble(Input.sc.nextLine()));
+        System.out.print("Nhap ngay ve: "); setngayve(Input.sc.nextLine());
+        System.out.print("Nhap gia: "); setgia(Input.sc.nextInt()); Input.sc.nextLine();
     }
 
     public void xuat() {
