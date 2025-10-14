@@ -2,6 +2,7 @@ package QuanLyTour;
 
 public class NhanVien extends ConNguoi {
     private String manv;
+    private static int count = 1;
 
     public NhanVien() {
         super();
@@ -10,10 +11,15 @@ public class NhanVien extends ConNguoi {
     public NhanVien(String manv, String hoten, String gioitinh, int tuoi, int sdt) {
         super(hoten, tuoi, gioitinh, sdt);
         this.manv = manv;
+        count++;
     }
 
     public String toString() {
-        return "Ma NV: " + manv + ", " + super.toString();
+        return manv + ", " + super.toString();
+    }
+
+    public static int getcount() {
+        return count;
     }
     public String getmanv() {
         return manv;
@@ -25,6 +31,7 @@ public class NhanVien extends ConNguoi {
     public void nhap() {
         System.out.println("Nhap thong tin nhan vien:");
         super.nhap();
+        setmanv("NV" + getcount());
     }
     public void xuat() {
         System.out.println("Thong tin nhan vien:");
