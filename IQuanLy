@@ -1,0 +1,11 @@
+package QuanLyTour;
+
+public interface IQuanLy<T> {
+    void them(T obj);
+    void sua(String ma);
+    void xoa(String ma);
+    T timkiem(String ma);
+    void xuatdanhsach();
+    void docfile();
+    void ghifile();
+}
