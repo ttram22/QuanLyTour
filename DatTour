@@ -30,11 +30,6 @@ public class DatTour {
     public LocalDate getngaydat() { return ngaydat; }
     public void setngaydat(LocalDate ngaydat) { this.ngaydat = ngaydat; }
 
-    public String toFileString() {
-        return madattour + ";" + kh.getmakh() + ";" + tour.getmatour() + ";" + ngaydat;
-    }
-
-    @Override
     public String toString() {
         return madattour + " | " + kh.getmakh() + " - " + kh.gethoten()
                 + " | " + tour.getmatour() + " - " + tour.gettentour()
