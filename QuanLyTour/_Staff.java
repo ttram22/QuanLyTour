@@ -1,11 +1,13 @@
 package QuanLyTour;
-public class Staff {
+public class _Staff {
       private String Username;
       private String Password;
+      private String role;
 
-      public Staff(String Username, String Password){
+      public _Staff(String Username, String Password, String role){
             this.Username = Username;
             this.Password = Password;
+            this.role = role;
       }
 
       // method take username form staff table
@@ -14,5 +16,8 @@ public class Staff {
       }
       public String getPassword(){
             return Password;
+      }  
+      public String getrole() {
+            return role;
       }
 }
