@@ -1,26 +1,33 @@
 package QuanLyTour;
 
 public class TourQuocTe extends Tour {
+    private String matourqt;
     private String chauluc;
     private String quocgia;
+    private static int count = 1;
 
-    
     public TourQuocTe() {
         super();
+        matourqt = "";
         chauluc = "";
         quocgia = "";
     }
-    public TourQuocTe(String matour, String tentour, String noikhoihanh, String ngaykhoihanh, String ngayve, double gia, String chauluc, String quocgia) {
-        super(matour, tentour, noikhoihanh, ngaykhoihanh, ngayve, gia);
+    public TourQuocTe(String matourqt, String tentour, String noikhoihanh, String ngaykhoihanh, String ngayve, int gia, String chauluc, String quocgia) {
+        super(tentour, noikhoihanh, ngaykhoihanh, ngayve, gia);
+        this.matourqt = matourqt;
         this.chauluc = chauluc;
         this.quocgia = quocgia;
+        count++;
     }
 
     public String toString() {
-        return super.toString() + ", Chau luc: " + chauluc + ", Quoc gia: " + quocgia;
+        return matourqt + ", " + super.toString() + ", Chau luc: " + chauluc + ", Quoc gia: " + quocgia;
     }
 
     // getter
+    public String getmatour() {
+        return matourqt;
+    }
     public String getchauluc() {
         return chauluc;
     }
@@ -29,6 +36,9 @@ public class TourQuocTe extends Tour {
     }
 
     // setter
+    public void setmatourqt(String matourqt) {
+        this.matourqt = matourqt;
+    }
     public void setchauluc(String chauluc) {
         this.chauluc = chauluc;
     }
@@ -41,6 +51,7 @@ public class TourQuocTe extends Tour {
         super.nhap();
         System.out.print("Nhap chau luc: "); setchauluc(Input.sc.nextLine());
         System.out.print("Nhap quoc gia: "); setquocgia(Input.sc.nextLine());
+        setmatourqt("TQT" + count);
     }
     public void xuat() {
         System.out.println("Thong tin tour quoc te:");
