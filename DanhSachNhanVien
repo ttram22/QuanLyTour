@@ -6,7 +6,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 
 import static QuanLyTour.Input.sc;
-public class DanhSachNhanVien implements QuanLy<NhanVien> {
+public class DanhSachNhanVien implements IQuanLy<NhanVien> {
     ArrayList<NhanVien> dsnv = new ArrayList<>();
     
     public void xuatdanhsach() {
@@ -21,28 +21,31 @@ public class DanhSachNhanVien implements QuanLy<NhanVien> {
         System.out.println("Them nhan vien thanh cong!");
     }
     public void xoa(String manv) {
+        boolean found = false;
         for (NhanVien nv : dsnv) {
-            if (nv.getmanv().equals(manv)) {
+            if (nv.getmanv().equalsIgnoreCase(manv)) {
                 dsnv.remove(nv);
                 ghifile();
-                System.out.println("Xoa nhan vien thanh cong!");
+                found = true;
                 break;
             }
-            else {
-                System.out.println("nvong tim thay nvach hang co ma: " + manv);
-            }
-        }          
+        }  
+        if (!found) 
+            System.out.println("Khong tim thay nhan vien co ma: " + manv);
+        else 
+            System.out.println("Da xoa thanh cong nhan vien co ma: " + manv);          
     }
     public void sua(String manv) {
+        boolean found = false;
         for (NhanVien nv : dsnv) {
-            if (nv.getmanv().equals(manv)) {
+            if (nv.getmanv().equalsIgnoreCase(manv)) {
                 System.out.println("Chon thong tin muon sua:");
                 System.out.println("1. Ho ten");
                 System.out.println("2. Gioi tinh");
                 System.out.println("3. Tuoi");
                 System.out.println("4. So dien thoai");
                 System.out.print("Nhap lua chon: "); int choice = sc.nextInt();
-                sc.nextLine(); // Bo qua dong enter
+                sc.nextLine(); 
 
                 switch (choice) {
                     case 1:
@@ -73,13 +76,17 @@ public class DanhSachNhanVien implements QuanLy<NhanVien> {
                         System.out.println("Lua chon chon khong hop le.");
                         return;
                 }
+                found = true;
             }
         }
-        System.out.println("Khong tim thay nhan vien co ma: " + manv);
+        if (!found) 
+            System.out.println("Khong tim thay nhan vien co ma: " + manv);
+        else 
+            System.out.println("Sua thong tin thanh cong!");
     }
     public NhanVien timkiem(String manv) {
         for (NhanVien nv : dsnv) {
-            if (nv.getmanv().equals(manv)) {
+            if (nv.getmanv().equalsIgnoreCase(manv)) {
                 return nv;
             }
         }
@@ -96,7 +103,7 @@ public class DanhSachNhanVien implements QuanLy<NhanVien> {
     }
     public NhanVien timkiemsdt(int sdt) {
         for (NhanVien nv : dsnv) {
-            if (nv.getsdt() == (sdt)) 
+            if (nv.getsdt() == sdt) 
                 return nv;
         }
         return null;
@@ -135,7 +142,7 @@ public class DanhSachNhanVien implements QuanLy<NhanVien> {
         try {
             FileWriter fw = new FileWriter("D:\\JAVA\\OOP\\QuanLyTour\\DanhSachNhanVien.txt");
             for (NhanVien nv : dsnv) {
-                fw.write(nv.getmanv() + "," + nv.gethoten() + "," + nv.getgioitinh() + "," + nv.gettuoi() + "," + nv.getsdt() + "\n");
+                fw.write(nv.getmanv() + ", " + nv.gethoten() + ", " + nv.getgioitinh() + ", " + nv.gettuoi() + ", " + nv.getsdt() + "\n");
             }
             fw.close();
         } 
