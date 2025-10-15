@@ -1,0 +1,75 @@
+package QuanLyTour;
+
+public class TourQuocTe extends Tour {
+    private String matourqt;
+    private String chauluc;
+    private String quocgia;
+    private static int count = 1;
+
+    public TourQuocTe() {
+        super();
+        matourqt = "";
+        chauluc = "";
+        quocgia = "";
+    }
+    public TourQuocTe(String matourqt, String tentour, String noikhoihanh, String ngaykhoihanh, String ngayve, int gia, String chauluc, String quocgia) {
+        super(tentour, noikhoihanh, ngaykhoihanh, ngayve, gia);
+        this.matourqt = matourqt;
+        this.chauluc = chauluc;
+        this.quocgia = quocgia;
+        count++;
+    }
+
+    public String toString() {
+        return matourqt + ", " + super.toString() + ", Chau luc: " + chauluc + ", Quoc gia: " + quocgia;
+    }
+
+    // getter
+    public String getmatour() {
+        return matourqt;
+    }
+    public String getchauluc() {
+        return chauluc;
+    }
+    public String getquocgia() {
+        return quocgia;
+    }
+
+    // setter
+    public void setmatourqt(String matourqt) {
+        while(matourqt.trim().equals("")){
+            System.out.println("Ma tour khong duoc de trong, vui long nhap lai!");
+            System.out.print("Nhap ma tour: ");
+            matourqt = sc.nextLine();
+        }
+        this.matourqt = matourqt;
+    }
+    public void setchauluc(String chauluc) {
+        while(chauluc.trim().equals("")){
+            System.out.println("Chau luc khong duoc de trong, vui long nhap lai!");
+            System.out.print("Nhap chau luc: ");
+            chauluc = sc.nextLine();
+        }
+        this.chauluc = chauluc;
+    }
+    public void setquocgia(String quocgia) {
+        while(quocgia.trim().equals("")){
+            System.out.println("Quoc gia khong duoc de trong, vui long nhap lai!");
+            System.out.print("Nhap quoc gia: ");
+            quocgia = sc.nextLine();
+        }
+        this.quocgia = quocgia;
+    }
+
+    public void nhap() {
+        System.out.println("Nhap thong tin tour quoc te:");
+        super.nhap();
+        System.out.print("Nhap chau luc: "); setchauluc(Input.sc.nextLine());
+        System.out.print("Nhap quoc gia: "); setquocgia(Input.sc.nextLine());
+        setmatourqt("TQT" + count);
+    }
+    public void xuat() {
+        System.out.println("Thong tin tour quoc te:");
+        System.out.println(this.toString());
+    }
+}

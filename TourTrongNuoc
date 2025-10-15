@@ -1,0 +1,76 @@
+package QuanLyTour;
+
+public class TourTrongNuoc extends Tour {
+    private String matourtn;
+    private String mien;
+    private String tinh;
+    private static int count = 1;
+
+    public TourTrongNuoc() {
+        super();
+        matourtn = "";
+        mien = "";
+        tinh = "";
+    }
+
+    public TourTrongNuoc(String matourtn, String tentour, String noikhoihanh, String ngaykhoihanh, String ngayve, int gia, String mien, String tinh) {
+        super(tentour, noikhoihanh, ngaykhoihanh, ngayve, gia);
+        this.matourtn = matourtn;
+        this.mien = mien;
+        this.tinh = tinh;
+        count++;
+    }
+
+    // getter
+    public String getmatour() {
+        return matourtn;
+    }
+    public String getmien() {
+        return mien;
+    }
+    public String gettinh() {
+        return tinh;
+    }
+
+    // setter
+    public void setmatourtn(String matourtn) {
+        while(matourtn.trim().equals("")){
+            System.out.println("Ma tour khong duoc de trong, vui long nhap lai!");
+            System.out.print("Nhap ma tour: ");
+            matourtn = sc.nextLine();
+        }
+        this.matourtn = matourtn;
+    }
+    public void setmien(String mien) {
+        while(mien.trim().equals("")){
+            System.out.println("Mien khong duoc de trong, vui long nhap lai!");
+            System.out.print("Nhap mien: ");
+            mien = sc.nextLine();
+        }
+        this.mien = mien;
+    }
+    public void settinh(String tinh) {
+        while(tinh.trim().equals("")){
+            System.out.println("Tinh khong duoc de trong, vui long nhap lai!");
+            System.out.print("Nhap tinh: ");
+            tinh = sc.nextLine();
+        }
+        this.tinh = tinh;
+    }
+
+    public String toString() {
+        return matourtn + ", " + super.toString() + ", Mien: " + mien + ", Tinh: " + tinh;
+    }
+
+    public void nhap() {
+        System.out.println("Nhap thong tin tour trong nuoc:");
+        super.nhap();
+        System.out.print("Nhap mien: "); setmien(Input.sc.nextLine());
+        System.out.print("Nhap tinh: "); settinh(Input.sc.nextLine());
+        setmatourtn("TTN" + count);
+    }
+    public void xuat() {
+        System.out.println("Thong tin tour trong nuoc:");
+        System.out.println(this.toString());
+    }
+}

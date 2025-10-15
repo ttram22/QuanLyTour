@@ -1,0 +1,120 @@
+package QuanLyTour;
+
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.util.Scanner;
+
+public abstract class Tour {
+    Scanner sc = new Scanner(System.in);
+    private String tentour;
+    private String noikhoihanh;
+    private String ngaykhoihanh;
+    private String ngayve;
+    private int gia;
+
+    public Tour() {
+        tentour = "";
+        noikhoihanh = "";
+        ngaykhoihanh = "";
+        gia = 0;
+    }
+    public Tour(String tentour, String noikhoihanh, String ngaykhoihanh, String ngayve, int gia) {
+        this.tentour = tentour;
+        this.noikhoihanh = noikhoihanh;
+        this.ngaykhoihanh = ngaykhoihanh;
+        this.ngayve = ngayve;
+        this.gia = gia;
+    }
+    
+
+    public String toString() {
+        return tentour + ", " + noikhoihanh + ", " + ngaykhoihanh + ", " + ngayve + ", " + gia;
+    }
+    public abstract String getmatour();
+    public String gettentour() {
+        return tentour;
+    }
+    public String getnoikhoihanh() {
+        return noikhoihanh;
+    }  
+    public String getngaykhoihanh() {
+        return ngaykhoihanh;
+    }
+    public String getngayve() {
+        return ngayve;
+    }
+    public int getgia() {
+        return gia;
+    }
+
+    // setter
+    public String settentour(String tentour) {
+        while(tentour.trim().equals("")){
+            System.out.println("Ten tour khong duoc de trong, vui long nhap lai!");
+            System.out.print("Nhap ten tour: ");
+            tentour = sc.nextLine();
+        }
+        this.tentour = tentour;
+        return tentour;
+    }
+    public void setnoikhoihanh(String noikhoihanh) {
+        while(noikhoihanh.trim().equals("")){
+            System.out.println("Noi khoi hanh khong duoc de trong, vui long nhap lai!");
+            System.out.print("Nhap noi khoi hanh: ");
+            noikhoihanh = sc.nextLine();
+        }
+        this.noikhoihanh = noikhoihanh;
+    }
+    public boolean ngayhople(String ngay){
+        if (ngay == null) return false;
+        ngay = ngay.trim();
+        if (ngay.isEmpty()) return false;
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        try {
+            LocalDate.parse(ngay, formatter);
+            return true;
+        } catch (DateTimeParseException e) {
+            return false;
+        }
+    }
+    public void setngaykhoihanh(String ngaykhoihanh) {
+        ngaykhoihanh = ngaykhoihanh.trim();
+        while(!ngayhople(ngaykhoihanh)){
+            System.out.println("Ngay khoi hanh khong hop le, vui long nhap lai theo dinh dang dd/MM/yyyy!");
+            System.out.print("Nhap ngay khoi hanh: ");
+            ngaykhoihanh = sc.nextLine();
+        }
+        this.ngaykhoihanh = ngaykhoihanh;
+    }
+    public void setngayve(String ngayve) {
+        ngayve = ngayve.trim();
+        while(!ngayhople(ngayve)){
+            System.out.println("Ngay ve khong hop le, vui long nhap lai theo dinh dang dd/MM/yyyy!");
+            System.out.print("Nhap ngay ve: ");
+            ngayve = sc.nextLine();
+        }
+        this.ngayve = ngayve;
+    }
+    public void setgia(int gia) {
+        while(gia < 0){
+            System.out.println("Gia tien khong the la so am, vui long nhap lai!");
+            System.out.print("Nhap gia: ");
+            gia = sc.nextInt();
+            sc.nextLine();
+        }
+        this.gia = gia;
+    }
+
+    public void nhap() {
+        System.out.print("Nhap ten tour: "); settentour(Input.sc.nextLine());
+        System.out.print("Nhap noi khoi hanh: "); setnoikhoihanh(Input.sc.nextLine());
+        System.out.print("Nhap ngay khoi hanh: "); setngaykhoihanh(Input.sc.nextLine());
+        System.out.print("Nhap ngay ve: "); setngayve(Input.sc.nextLine());
+        System.out.print("Nhap gia: "); setgia(Input.sc.nextInt()); Input.sc.nextLine();
+    }
+
+    public void xuat() {
+        System.out.println(this.toString());
+    }
+}

@@ -1,0 +1,47 @@
+package QuanLyTour;
+
+import java.util.Scanner;
+
+public class NhanVien extends ConNguoi {
+    Scanner sc = new Scanner(System.in);
+    private String manv;
+    private static int count = 1;
+
+    public NhanVien() {
+        super();
+        manv = "";
+    }
+    public NhanVien(String manv, String hoten, String gioitinh, int tuoi, int sdt) {
+        super(hoten, tuoi, gioitinh, sdt);
+        this.manv = manv;
+        count++;
+    }
+
+    public String toString() {
+        return manv + ", " + super.toString();
+    }
+
+    public static int getcount() {
+        return count;
+    }
+    public String getmanv() {
+        return manv;
+    }
+    public void setmanv(String manv) {
+        while(manv.trim().equals("")){
+            System.out.println("Ma nhan vien khong duoc de trong, vui long nhap lai!");
+            System.out.print("Nhap ma nhan vien: "); manv = sc.nextLine();
+        }
+        this.manv = manv;
+    }
+
+    public void nhap() {
+        System.out.println("Nhap thong tin nhan vien:");
+        super.nhap();
+        setmanv("NV" + getcount());
+    }
+    public void xuat() {
+        System.out.println("Thong tin nhan vien:");
+        System.out.println(this.toString());
+    }
+}

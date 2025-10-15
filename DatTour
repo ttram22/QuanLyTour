@@ -1,0 +1,42 @@
+package QuanLyTour;
+
+import java.time.LocalDate;
+public class DatTour {
+    private String madattour;
+    private KhachHang kh;
+    private Tour tour;
+    private LocalDate ngaydat;
+
+
+    public DatTour(KhachHang kh, Tour tour, LocalDate ngaydat) {
+        this.kh = kh;
+        this.tour = tour;
+        this.ngaydat = ngaydat;
+        this.madattour = "DT" + kh.getmakh() + tour.getmatour();
+    }
+    
+    public DatTour(String madattour, KhachHang kh, Tour tour, LocalDate ngaydat) {
+        this.madattour = madattour;
+        this.kh = kh;
+        this.tour = tour;
+        this.ngaydat = ngaydat;
+    }
+
+    public String getmadattour() { return madattour; }
+    public KhachHang getKhachHang() { return kh; }
+    public void setKhachHang(KhachHang kh) { this.kh = kh; }
+    public Tour getTour() { return tour; }
+    public void setTour(Tour tour) { this.tour = tour; }
+    public LocalDate getngaydat() { return ngaydat; }
+    public void setngaydat(LocalDate ngaydat) { this.ngaydat = ngaydat; }
+
+    public String toString() {
+        return madattour + " | " + kh.getmakh() + " - " + kh.gethoten()
+                + " | " + tour.getmatour() + " - " + tour.gettentour()
+                + " | Ngay: " + ngaydat;
+    }
+
+    public void xuat() {
+        System.out.println(this.toString());
+    }
+}
