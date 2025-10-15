@@ -1,6 +1,9 @@
 package QuanLyTour;
 
+import java.util.Scanner;
+
 public class NhanVien extends ConNguoi {
+    Scanner sc = new Scanner(System.in);
     private String manv;
     private static int count = 1;
 
@@ -25,6 +28,10 @@ public class NhanVien extends ConNguoi {
         return manv;
     }
     public void setmanv(String manv) {
+        while(manv.trim().equals("")){
+            System.out.println("Ma nhan vien khong duoc de trong, vui long nhap lai!");
+            System.out.print("Nhap ma nhan vien: "); manv = sc.nextLine();
+        }
         this.manv = manv;
     }
 
