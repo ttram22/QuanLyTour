@@ -1,6 +1,7 @@
 package QuanLyTour;
 
 import static QuanLyTour.Input.sc;
+
 public abstract class ConNguoi {
     private String hoten;
     private int tuoi;
@@ -40,16 +41,48 @@ public abstract class ConNguoi {
 
     // setter
     public void sethoten(String hoten) {
+        while(hoten.trim().equals("")){
+            System.out.println("Ho ten khong duoc de trong, vui long nhap lai!");
+            System.out.print("Nhap ho ten: ");
+            hoten = sc.nextLine();
+        }
         this.hoten = hoten;
     }
+
     public void settuoi(int tuoi) {
+        while(tuoi < 0){
+            System.out.println("Tuoi khong the la so am, vui long nhap lai!");
+            System.out.print("Nhap tuoi: ");
+            tuoi = sc.nextInt();
+            sc.nextLine();
+        }
         this.tuoi = tuoi;
     }
     public void setgioitinh(String gioitinh) {
+        while(!gioitinh.equalsIgnoreCase("nam") && !gioitinh.equalsIgnoreCase("nu")){
+            System.out.println("Gioi tinh nhap vao phai la nam hoac nu, vui long nhap lai!");
+            System.out.print("Nhap gioi tinh: ");
+            gioitinh = sc.nextLine();
+        }
         this.gioitinh = gioitinh;
     }   
     public void setsdt(int sdt) {
+        while(lengthOfPhoneNumber(sdt) != 9){
+            System.out.println("So dien thoai phai co 9 so (khong bao gom so 0 dau tien), vui long nhap lai!");
+            System.out.print("Nhap so dien thoai: ");
+            sdt = sc.nextInt();
+            sc.nextLine();
+        }
         this.sdt = sdt;
+    }
+
+    public int lengthOfPhoneNumber(int sdt){
+        int cntLengthOfPhoneNumber = 0;
+        while(sdt > 0){
+            cntLengthOfPhoneNumber++;
+            sdt /= 10;
+        }
+        return cntLengthOfPhoneNumber;
     }
 
     public void nhap() {
