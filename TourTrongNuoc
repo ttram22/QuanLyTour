@@ -34,12 +34,27 @@ public class TourTrongNuoc extends Tour {
 
     // setter
     public void setmatourtn(String matourtn) {
+        while(matourtn.trim().equals("")){
+            System.out.println("Ma tour khong duoc de trong, vui long nhap lai!");
+            System.out.print("Nhap ma tour: ");
+            matourtn = sc.nextLine();
+        }
         this.matourtn = matourtn;
     }
     public void setmien(String mien) {
+        while(mien.trim().equals("")){
+            System.out.println("Mien khong duoc de trong, vui long nhap lai!");
+            System.out.print("Nhap mien: ");
+            mien = sc.nextLine();
+        }
         this.mien = mien;
     }
     public void settinh(String tinh) {
+        while(tinh.trim().equals("")){
+            System.out.println("Tinh khong duoc de trong, vui long nhap lai!");
+            System.out.print("Nhap tinh: ");
+            tinh = sc.nextLine();
+        }
         this.tinh = tinh;
     }
 
