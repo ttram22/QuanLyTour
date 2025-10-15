@@ -37,12 +37,27 @@ public class TourQuocTe extends Tour {
 
     // setter
     public void setmatourqt(String matourqt) {
+        while(matourqt.trim().equals("")){
+            System.out.println("Ma tour khong duoc de trong, vui long nhap lai!");
+            System.out.print("Nhap ma tour: ");
+            matourqt = sc.nextLine();
+        }
         this.matourqt = matourqt;
     }
     public void setchauluc(String chauluc) {
+        while(chauluc.trim().equals("")){
+            System.out.println("Chau luc khong duoc de trong, vui long nhap lai!");
+            System.out.print("Nhap chau luc: ");
+            chauluc = sc.nextLine();
+        }
         this.chauluc = chauluc;
     }
     public void setquocgia(String quocgia) {
+        while(quocgia.trim().equals("")){
+            System.out.println("Quoc gia khong duoc de trong, vui long nhap lai!");
+            System.out.print("Nhap quoc gia: ");
+            quocgia = sc.nextLine();
+        }
         this.quocgia = quocgia;
     }
 
