@@ -7,6 +7,7 @@ import java.util.Scanner;
 
 public abstract class Tour {
     Scanner sc = new Scanner(System.in);
+    private String matour;
     private String tentour;
     private String noikhoihanh;
     private String ngaykhoihanh;
@@ -14,12 +15,14 @@ public abstract class Tour {
     private int gia;
 
     public Tour() {
+        matour = "";
         tentour = "";
         noikhoihanh = "";
         ngaykhoihanh = "";
         gia = 0;
     }
-    public Tour(String tentour, String noikhoihanh, String ngaykhoihanh, String ngayve, int gia) {
+    public Tour(String matour, String tentour, String noikhoihanh, String ngaykhoihanh, String ngayve, int gia) {
+        this.matour = matour;
         this.tentour = tentour;
         this.noikhoihanh = noikhoihanh;
         this.ngaykhoihanh = ngaykhoihanh;
@@ -29,9 +32,14 @@ public abstract class Tour {
     
 
     public String toString() {
-        return tentour + ", " + noikhoihanh + ", " + ngaykhoihanh + ", " + ngayve + ", " + gia;
+        return matour + "," + tentour + ", " + noikhoihanh + ", " + ngaykhoihanh + ", " + ngayve + ", " + gia;
     }
-    public abstract String getmatour();
+
+    // public abstract String getmatour();
+    //getter
+    public String getmatour(){
+        return matour;
+    }
     public String gettentour() {
         return tentour;
     }
@@ -47,8 +55,19 @@ public abstract class Tour {
     public int getgia() {
         return gia;
     }
-
+    
     // setter
+    public String setmatour(String matour){
+        if (matour == null) matour = "";
+        matour = matour.trim();
+        while (matour.equals("")){
+            System.out.println("Ma tour khong duoc de trong, vui long nhap lai!");
+            System.out.print("Nhap ma tour: ");
+            matour = sc.nextLine().trim();
+        }
+        this.matour = matour;
+        return matour;
+    }
     public String settentour(String tentour) {
         while(tentour.trim().equals("")){
             System.out.println("Ten tour khong duoc de trong, vui long nhap lai!");
@@ -117,4 +136,5 @@ public abstract class Tour {
     public void xuat() {
         System.out.println(this.toString());
     }
+    
 }
