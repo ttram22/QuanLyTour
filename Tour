@@ -35,7 +35,6 @@ public abstract class Tour {
         return matour + "," + tentour + ", " + noikhoihanh + ", " + ngaykhoihanh + ", " + ngayve + ", " + gia;
     }
 
-    // public abstract String getmatour();
     //getter
     public String getmatour(){
         return matour;
@@ -57,18 +56,16 @@ public abstract class Tour {
     }
     
     // setter
-    public String setmatour(String matour){
+    public void setmatour(String matour){
         this.matour = matour;
-        return matour;
     }
-    public String settentour(String tentour) {
+    public void settentour(String tentour) {
         while(tentour.trim().equals("")){
             System.out.println("Ten tour khong duoc de trong, vui long nhap lai!");
             System.out.print("Nhap ten tour: ");
             tentour = sc.nextLine();
         }
         this.tentour = tentour;
-        return tentour;
     }
     public void setnoikhoihanh(String noikhoihanh) {
         while(noikhoihanh.trim().equals("")){
@@ -129,5 +126,4 @@ public abstract class Tour {
     public void xuat() {
         System.out.println(this.toString());
     }
-    
 }
