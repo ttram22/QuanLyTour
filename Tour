@@ -31,7 +31,9 @@ public abstract class Tour {
     public String toString() {
         return tentour + ", " + noikhoihanh + ", " + ngaykhoihanh + ", " + ngayve + ", " + gia;
     }
-    public abstract String getmatour();
+
+
+    //getter
     public String gettentour() {
         return tentour;
     }
