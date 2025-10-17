@@ -58,13 +58,6 @@ public abstract class Tour {
     
     // setter
     public String setmatour(String matour){
-        if (matour == null) matour = "";
-        matour = matour.trim();
-        while (matour.equals("")){
-            System.out.println("Ma tour khong duoc de trong, vui long nhap lai!");
-            System.out.print("Nhap ma tour: ");
-            matour = sc.nextLine().trim();
-        }
         this.matour = matour;
         return matour;
     }
