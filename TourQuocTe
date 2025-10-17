@@ -1,7 +1,6 @@
 package QuanLyTour;
 
 public class TourQuocTe extends Tour {
-    private String matourqt;
     private String chauluc;
     private String quocgia;
     private static int count = 1;
@@ -11,8 +10,8 @@ public class TourQuocTe extends Tour {
         chauluc = "";
         quocgia = "";
     }
-    public TourQuocTe(String matourqt, String tentour, String noikhoihanh, String ngaykhoihanh, String ngayve, int gia, String chauluc, String quocgia) {
-        super(matourqt, tentour, noikhoihanh, ngaykhoihanh, ngayve, gia);
+    public TourQuocTe(String matour, String tentour, String noikhoihanh, String ngaykhoihanh, String ngayve, int gia, String chauluc, String quocgia) {
+        super(matour, tentour, noikhoihanh, ngaykhoihanh, ngayve, gia);
         this.chauluc = chauluc;
         this.quocgia = quocgia;
         count++;
@@ -33,14 +32,6 @@ public class TourQuocTe extends Tour {
     // setter
     @Override
     public String setmatour(String matourqt){
-        if (matourqt == null) matourqt = "";
-        matourqt = matourqt.trim();
-        while (matourqt.equals("")){
-            System.out.println("Ma tour khong duoc de trong, vui long nhap lai!");
-            System.out.print("Nhap ma tour: ");
-            matourqt = sc.nextLine().trim();
-        }
-        this.matourqt = matourqt;
         return super.setmatour(matourqt);
     }
     public void setchauluc(String chauluc) {
