@@ -31,9 +31,8 @@ public class TourTrongNuoc extends Tour {
     }
 
     // setter
-    @Override
-    public String setmatour(String matourtn){
-        return super.setmatour(matourtn);
+    public void setmatour(String matourtn){
+        super.setmatour(matourtn);
     }
     public void setmien(String mien) {
         while(mien.trim().equals("")){
