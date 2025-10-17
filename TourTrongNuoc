@@ -31,9 +31,6 @@ public class TourTrongNuoc extends Tour {
     }
 
     // setter
-    public void setmatour(String matourtn){
-        super.setmatour(matourtn);
-    }
     public void setmien(String mien) {
         while(mien.trim().equals("")){
             System.out.println("Mien khong duoc de trong, vui long nhap lai!");
