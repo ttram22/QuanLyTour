@@ -30,9 +30,8 @@ public class TourQuocTe extends Tour {
     }
 
     // setter
-    @Override
-    public String setmatour(String matourqt){
-        return super.setmatour(matourqt);
+    public void setmatour(String matourqt){
+        super.setmatour(matourqt);
     }
     public void setchauluc(String chauluc) {
         while(chauluc.trim().equals("")){
