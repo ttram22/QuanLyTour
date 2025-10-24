@@ -9,17 +9,19 @@ public abstract class Tour {
     Scanner sc = new Scanner(System.in);
     private String tentour;
     private String noikhoihanh;
-    private String ngaykhoihanh;
-    private String ngayve;
+    private LocalDate ngaykhoihanh;
+    private LocalDate ngayve;
     private int gia;
+    public DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
     public Tour() {
+        matour = "";
         tentour = "";
-        noikhoihanh = "";
-        ngaykhoihanh = "";
+        noikhoihanh = null;
+        ngaykhoihanh = null;
         gia = 0;
     }
-    public Tour(String tentour, String noikhoihanh, String ngaykhoihanh, String ngayve, int gia) {
+    public Tour(String tentour, String noikhoihanh, LocalDate ngaykhoihanh, LocalDate ngayve, int gia) {
         this.tentour = tentour;
         this.noikhoihanh = noikhoihanh;
         this.ngaykhoihanh = ngaykhoihanh;
@@ -40,10 +42,10 @@ public abstract class Tour {
     public String getnoikhoihanh() {
         return noikhoihanh;
     }  
-    public String getngaykhoihanh() {
+    public LocalDate getngaykhoihanh() {
         return ngaykhoihanh;
     }
-    public String getngayve() {
+    public LocalDate getngayve() {
         return ngayve;
     }
     public int getgia() {
@@ -85,18 +87,19 @@ public abstract class Tour {
         while(!ngayhople(ngaykhoihanh)){
             System.out.println("Ngay khoi hanh khong hop le, vui long nhap lai theo dinh dang dd/MM/yyyy!");
             System.out.print("Nhap ngay khoi hanh: ");
-            ngaykhoihanh = sc.nextLine();
+            ngaykhoihanh = sc.nextLine().trim();
         }
-        this.ngaykhoihanh = ngaykhoihanh;
+        this.ngaykhoihanh = LocalDate.parse(ngaykhoihanh, formatter);
     }
+
     public void setngayve(String ngayve) {
         ngayve = ngayve.trim();
         while(!ngayhople(ngayve)){
             System.out.println("Ngay ve khong hop le, vui long nhap lai theo dinh dang dd/MM/yyyy!");
             System.out.print("Nhap ngay ve: ");
-            ngayve = sc.nextLine();
+            ngayve = sc.nextLine().trim();
         }
-        this.ngayve = ngayve;
+        this.ngayve = LocalDate.parse(ngayve, formatter);
     }
     public void setgia(int gia) {
         while(gia < 0){
