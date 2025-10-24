@@ -42,6 +42,12 @@ public class DanhSachDatTour  {
     }
     public void xoa(String ma) {
         DatTour dattourcanxoa = null;
+        while(ma.trim().equals("")){
+            System.out.print("Ma khach hang nhap vao khong duoc de trong, vui long nhap lai: ");
+            ma = sc.nextLine();
+        }
+        ma = ma.trim();
+        
         for (DatTour t : dsdattour) {
             if (t.getmadattour().equals(ma)) {
                 dattourcanxoa = t;
@@ -57,6 +63,13 @@ public class DanhSachDatTour  {
         }
     }
     public DatTour timkiem(String ma) {
+        //them rang buoc ma de tim kiem
+        while(ma.trim().equals("")){
+            System.out.print("Ma khach hang nhap vao khong duoc de trong, vui long nhap lai: ");
+            ma = sc.nextLine();
+        }
+        ma = ma.trim();
+
         for (DatTour dt : dsdattour) {
             if (dt.getmadattour().toLowerCase().equals(ma.toLowerCase())) 
                 return dt;
@@ -64,6 +77,13 @@ public class DanhSachDatTour  {
         return null;
     }
     public DatTour timkiemkh(String makh) {
+        //them rang buoc makh de tim kiem
+        while(makh.trim().equals("")){
+            System.out.print("Ma khach hang nhap vao khong duoc de trong, vui long nhap lai: ");
+            makh = sc.nextLine();
+        }
+        makh = makh.trim();
+
         for (DatTour dt : dsdattour) {
             if (dt.getKhachHang().getmakh().equalsIgnoreCase(makh))
                 return dt;
@@ -72,6 +92,12 @@ public class DanhSachDatTour  {
 
     }
     public DatTour timkiemtour(String matour) {
+        //them rang buoc ma de tim kiem
+        while(matour.trim().equals("")){
+            System.out.print("Ma tour nhap vao khong duoc de trong, vui long nhap lai: ");
+            matour = sc.nextLine();
+        }
+        matour = matour.trim();
         for (DatTour dt : dsdattour) {
             if (dt.getTour().getmatour().equalsIgnoreCase(matour))
                 return dt;
