@@ -1,0 +1,296 @@
+package QuanLyTour;
+
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.util.ArrayList;
+
+import static QuanLyTour.Input.sc;
+
+public class DanhSachTour implements IQuanLy<Tour> {
+    ArrayList<Tour> dstour = new ArrayList<>(); 
+
+    public void xuatdanhsach() {
+        System.out.println("==== DANH SACH TOUR ====");
+        for (Tour tour : dstour) {
+            System.out.println(tour);
+        }
+    }
+    public void xuatdanhsachtourtrongnuoc() {
+        System.out.println("==== DANH SACH TOUR TRONG NUOC ====");
+        for (Tour tour : dstour) {
+            if (tour instanceof TourTrongNuoc)
+                System.out.println(tour);
+        }
+    }
+    public void xuatdanhsachtourquocte() {
+        System.out.println("==== DANH SACH TOUR QUOC TE ====");
+        for (Tour tour : dstour) {
+            if (tour instanceof TourQuocTe)
+                System.out.println(tour);
+        }
+    }
+    public void them(Tour tour) {
+        dstour.add(tour);
+        ghifile();
+    }
+    public void sua(String ma) {
+        //them rang buoc ma de tim kiem
+        while(ma.trim().equals("")){
+            System.out.print("Ma nhap vao khong duoc de trong, vui long nhap lai: ");
+            ma = sc.nextLine();
+        }
+        ma = ma.trim();
+
+        boolean found = false;
+        for (Tour t : dstour) {
+            if (t.getmatour().equalsIgnoreCase(ma)) {
+                found = true;
+                System.out.println("Chon thong tin muon sua:");
+                System.out.println("1. Ten tour");
+                System.out.println("2. Noi khoi hanh");
+                System.out.println("3. Ngay khoi hanh");
+                System.out.println("4. Ngay ve");
+                System.out.println("5. Gia");
+                System.out.print("Nhap lua chon: ");
+                int choice = sc.nextInt(); sc.nextLine();
+                switch (choice) {
+                    case 1:
+                        System.out.print("Nhap ten tour moi: ");
+                        String tenTour = sc.nextLine();
+                        while(tenTour.trim().equals("")){
+                            System.out.print("Ten tour nhap vao khong duoc de trong, nhap lai: ");
+                            tenTour = sc.nextLine();
+                        }
+                        tenTour = tenTour.trim();
+                        
+                        if (t.gettentour().equalsIgnoreCase(tenTour)) {
+                            System.out.println("Thong tin moi phai khac thong tin cu.");
+                        }
+                        else {
+                            t.settentour(tenTour);
+                            ghifile();
+                        }
+                        break;
+                    case 2:
+                        System.out.print("Nhap noi khoi hanh moi: ");
+                        String noiKhoiHanh = sc.nextLine();
+                        while(noiKhoiHanh.trim().equals("")){
+                            System.out.print("Noi khoi hanh nhap vao khong duoc de trong, nhap lai: ");
+                            noiKhoiHanh = sc.nextLine();
+                        }
+                        noiKhoiHanh = noiKhoiHanh.trim();
+
+                        if (t.getnoikhoihanh().equalsIgnoreCase(noiKhoiHanh)) {
+                            System.out.println("Thong tin moi phai khac thong tin cu.");
+                        }
+                        else {
+                            t.setnoikhoihanh(noiKhoiHanh);
+                            ghifile();
+                        }
+                        break;
+                    case 3:
+                        System.out.print("Nhap ngay khoi hanh moi: ");
+                        String ngayKhoiHanh = sc.nextLine();
+                        LocalDate ngayKhoiHanh_date = LocalDate.parse(ngayKhoiHanh, t.formatter);
+                        if (t.getngaykhoihanh().equals(ngayKhoiHanh_date)) {
+                            System.out.println("Thong tin moi phai khac thong tin cu.");
+                        }
+                        else {
+                            t.setngaykhoihanh(ngayKhoiHanh);
+                            ghifile();
+                        }
+                        break;
+                    case 4:
+                        System.out.print("Nhap ngay ve moi: ");
+                        String ngayVe = sc.nextLine();
+                        LocalDate ngayVe_date = LocalDate.parse(ngayVe, t.formatter);
+                        if (t.getngayve().equals(ngayVe_date)) {
+                            System.out.println("Thong tin moi phai khac thong tin cu.");
+                        }
+                        else {
+                            t.setngayve(ngayVe);
+                            ghifile();
+                        }
+                        break;
+                    case 5:
+                        System.out.print("Nhap gia moi: ");
+                        int gia = sc.nextInt(); sc.nextLine();
+                        if (t.getgia() == gia) {
+                            System.out.println("Thong tin moi phai khac thong tin cu.");
+                        }
+                        else {
+                            t.setgia(gia);
+                            ghifile();
+                        }
+                        break;
+                    default:
+                        System.out.println("Lua chon khong hop le.");
+                        return;
+                }
+            }
+        }
+        if (!found)
+            System.out.println("Khong tim thay tour co ma: " + ma);
+        else 
+            System.out.println("Sua thong tin tour thanh cong!");
+    }
+    public void xoa(String ma) {
+        //them rang buoc ma de tim kiem
+        while(ma.trim().equals("")){
+            System.out.print("Ma tour nhap vao khong duoc de trong, vui long nhap lai: ");
+            ma = sc.nextLine();
+        }
+        ma = ma.trim();
+        
+        Tour tourXoa = null;
+        for (Tour t : dstour) {
+            if (t.getmatour().equals(ma)) {
+                tourXoa = t;
+                break;
+            }
+        }
+        if (tourXoa != null) {
+            dstour.remove(tourXoa);
+            ghifile();
+            System.out.println("Xoa tour thanh cong: " + ma);
+        } 
+        else {
+            System.out.println("Khong tim thay tour co ma: " + ma);
+        }
+    }
+    public Tour timkiem(String ma) {
+        //them rang buoc ma de tim kiem
+        while(ma.trim().equals("")){
+            System.out.print("Ma tour nhap vao khong duoc de trong, vui long nhap lai: ");
+            ma = sc.nextLine();
+        }
+        ma = ma.trim();
+        for (Tour t : dstour) {
+            if (t.getmatour().equalsIgnoreCase(ma)) {
+                return t;
+            }
+        }
+        return null;
+    }
+
+    // TÌM KIẾM NÂNG CAO
+    public Tour timkiemten(String ten) {
+        // them rang buoc tim kiem theo ten
+        while(ten.trim().equals("")){
+            System.out.print("Ten tour nhap vao khong duoc de trong, vui long nhap lai: ");
+            ten = sc.nextLine();
+        }
+        ten = ten.trim().replaceAll("\\s+", " ");
+
+        for (Tour t : dstour) {
+            if (t.gettentour().equalsIgnoreCase(ten))
+                return t;
+        }
+        return null;
+    }
+    public ArrayList<Tour> timkiemgia(int min, int max) {
+        ArrayList<Tour> tourtim = new ArrayList<>();
+        //them rang buoc cho khoang gia
+        while(min < 0){
+            System.out.print("Khoang gia bat dau khong duoc nho hon 0, vui long nhap lai: ");
+            min = sc.nextInt();
+            sc.nextLine();
+        }
+        while (max < 0 || max < min) {
+            System.out.print("Khoang gia ket thuc khong duoc nho hon 0 va phai lon hon khoang gia bat dau, vui long nhap lai: ");
+            max = sc.nextInt();
+            sc.nextLine();
+        }
+
+        for (Tour t : dstour) {
+            if (t.getgia() >= min && t.getgia() <= max)  {
+                tourtim.add(t);
+            }
+        }
+        return tourtim;
+        
+    }
+    public ArrayList<Tour> timkiemloaitour(String loai) {
+        ArrayList<Tour> tourtim = new ArrayList<>();
+        // them rang buoc loai tour
+        while(loai.trim().equals("")){
+            System.out.print("Loai tour nhap vao khong duoc de trong, vui long nhap lai: ");
+            loai = sc.nextLine();
+        }
+        loai = loai.trim().replaceAll("\\s+", " ");
+        
+        for (Tour t : dstour) {
+            if ((loai.equalsIgnoreCase("tour trong nuoc") || loai.equalsIgnoreCase("tourtrongnuoc")) && t instanceof TourTrongNuoc) {
+                tourtim.add(t);
+            }
+            else if ((loai.equalsIgnoreCase("tour quoc te") || loai.equalsIgnoreCase("tourquocte")) && t instanceof TourQuocTe) {
+                tourtim.add(t);
+            }  
+        }
+        return tourtim;
+    }
+
+
+    // đọc, ghi file
+    public void docfile() {
+        try {
+            BufferedReader br = new BufferedReader(new FileReader("D:\\JAVA\\OOP\\QuanLyTour\\DanhSachTour.txt"));
+            String line; 
+            
+            while((line = br.readLine()) != null) {
+                String[] parts = line.split(","); 
+
+                for (int i=0; i<parts.length; i++) {
+                    parts[i] = parts[i].trim();
+                }
+
+                String ma = parts[0];
+                String ten = parts[1];
+                String noikhoihanh = parts[2];
+                LocalDate ngaykhoihanh = LocalDate.parse(parts[3]);
+                LocalDate ngayve = LocalDate.parse(parts[4]);
+                int gia = Integer.parseInt(parts[5]);
+                String khuvucden = parts[6];
+                String diemden = parts[7];
+
+                if (khuvucden.startsWith("Chau luc")) {
+                    String chauluc = khuvucden.substring("Chau luc:".length()).trim();
+                    String quocgia = diemden.substring("Quoc gia:".length()).trim();
+                    TourQuocTe tqt = new TourQuocTe(ma, ten, noikhoihanh, ngaykhoihanh, ngayve, gia, chauluc, quocgia);
+                    them(tqt);
+                } 
+                else if (khuvucden.startsWith("Mien")) {
+                    String mien = khuvucden.substring("Mien:".length()).trim();
+                    String tinh = diemden.substring("Tinh:".length()).trim();
+                    TourTrongNuoc ttn = new TourTrongNuoc(ma, ten, noikhoihanh, ngaykhoihanh, ngayve, gia, mien, tinh);
+                    them(ttn);
+                } 
+            }
+            br.close();
+        }
+        catch (Exception e) {
+            System.out.println("Loi khi doc file: ");
+            e.printStackTrace();
+        }
+    }
+    public void ghifile() {
+        try {
+            FileWriter fw = new FileWriter("D:\\JAVA\\OOP\\QuanLyTour\\DanhSachTour.txt");
+            for (Tour t : dstour) {
+                if (t instanceof TourQuocTe) {
+                    TourQuocTe tqt = (TourQuocTe) t;
+                    fw.write(tqt.toString() + "\n");
+                }
+                else if (t instanceof TourTrongNuoc) {
+                    TourTrongNuoc ttn = (TourTrongNuoc) t;
+                    fw.write(ttn.toString() + "\n");
+                }
+            }
+            fw.close();
+        } 
+        catch (Exception e) {
+            System.out.println("Loi khi ghi file: " + e);
+        }
+    }
+}

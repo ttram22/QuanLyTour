@@ -1,0 +1,215 @@
+package QuanLyTour;
+
+import java.util.ArrayList;
+import java.io.FileWriter;
+import java.io.BufferedReader;
+import java.io.FileReader;
+
+import static QuanLyTour.Input.sc;
+public class DanhSachNhanVien implements IQuanLy<NhanVien> {
+    ArrayList<NhanVien> dsnv = new ArrayList<>();
+    
+    public void xuatdanhsach() {
+        System.out.println("==== DANH SACH SACH NHAN VIEN ====");
+        for (NhanVien nv : dsnv) {
+            System.out.println(nv);
+        }
+    }
+    public void them(NhanVien nv) {
+        dsnv.add(nv);
+        ghifile();
+        System.out.println("Them nhan vien thanh cong!");
+    }
+    public void xoa(String manv) {
+        //them rang buoc manv de tim kiem
+        while(manv.trim().equals("")){
+            System.out.print("Ma nhan vien nhap vao khong duoc de trong, vui long nhap lai: ");
+            manv = sc.nextLine();
+        }
+        manv = manv.trim();
+
+        boolean found = false;
+        for (NhanVien nv : dsnv) {
+            if (nv.getmanv().equalsIgnoreCase(manv)) {
+                dsnv.remove(nv);
+                ghifile();
+                found = true;
+                break;
+            }
+        }  
+        if (!found) 
+            System.out.println("Khong tim thay nhan vien co ma: " + manv);
+        else 
+            System.out.println("Da xoa thanh cong nhan vien co ma: " + manv);          
+    }
+    public void sua(String manv) {
+        //them rang buoc manv de tim kiem
+        while(manv.trim().equals("")){
+            System.out.print("Ma nhan vien nhap vao khong duoc de trong, vui long nhap lai: ");
+            manv = sc.nextLine();
+        }
+        manv = manv.trim();
+
+        boolean found = false;
+        for (NhanVien nv : dsnv) {
+            if (nv.getmanv().equalsIgnoreCase(manv)) {
+                System.out.println("Chon thong tin muon sua:");
+                System.out.println("1. Ho ten");
+                System.out.println("2. Gioi tinh");
+                System.out.println("3. Tuoi");
+                System.out.println("4. So dien thoai");
+                System.out.print("Nhap lua chon: "); int choice = sc.nextInt();
+                sc.nextLine(); 
+
+                switch (choice) {
+                    case 1:
+                        System.out.print("Nhap ho ten moi: ");
+                        String hoten = sc.nextLine();
+                        while(hoten.trim().equals("")){
+                            System.out.print("Ho ten nhap vao khong duoc de trong, nhap lai: ");
+                            hoten = sc.nextLine();
+                        }
+                        hoten = hoten.trim();
+                        nv.sethoten(hoten);
+                        ghifile();
+                        break;
+                    case 2:
+                        System.out.print("Nhap gioi tinh moi: ");
+                        String gioitinh = sc.nextLine();
+                        while(gioitinh.trim().equals("")){
+                            System.out.print("Ho ten nhap vao khong duoc de trong, nhap lai: ");
+                            gioitinh = sc.nextLine();
+                        }
+                        gioitinh = gioitinh.trim();
+
+                        nv.setgioitinh(gioitinh);
+                        ghifile();
+                        break;
+                    case 3:
+                        System.out.print("Nhap tuoi moi: ");
+                        int tuoi = sc.nextInt();
+                        while (tuoi < 0) {
+                            System.out.print("Tuoi nhap vao khong duoc nho hon 0, nhap lai: ");
+                            tuoi = sc.nextInt();
+                            sc.nextLine();
+                        }
+
+                        nv.settuoi(tuoi);
+                        ghifile();
+                        break;
+                    case 4:
+                        System.out.print("Nhap so dien thoai moi: ");
+                        int sdt = sc.nextInt();
+                        nv.setsdt(sdt);
+                        ghifile();
+                        break;
+                    default:
+                        System.out.println("Lua chon chon khong hop le.");
+                        return;
+                }
+                found = true;
+            }
+        }
+        if (!found) 
+            System.out.println("Khong tim thay nhan vien co ma: " + manv);
+        else 
+            System.out.println("Sua thong tin thanh cong!");
+    }
+    public NhanVien timkiem(String manv) {
+        //them rang buoc ma de tim kiem
+        while(manv.trim().equals("")){
+            System.out.print("Ma nhan vien nhap vao khong duoc de trong, vui long nhap lai: ");
+            manv = sc.nextLine();
+        }
+        manv = manv.trim();
+
+        for (NhanVien nv : dsnv) {
+            if (nv.getmanv().equalsIgnoreCase(manv)) {
+                return nv;
+            }
+        }
+        return null;
+    }
+    
+    //  TÌM KIẾM NÂNG CAO
+    public NhanVien timkiemten(String ten) {
+        //them rang buoc ten de tim kiem
+        while(ten.trim().equals("")){
+            System.out.print("Ten nhap vao khong duoc de trong, vui long nhap lai: ");
+            ten = sc.nextLine();
+        }
+        ten = ten.trim().replace("\\+", "");
+
+        for (NhanVien nv : dsnv) {
+            if (nv.gethoten().equalsIgnoreCase(ten)) 
+                return nv;
+        }
+        return null;
+    }
+    public NhanVien timkiemsdt(int sdt) {
+        // them rang buoc tim kiem theo sdt 
+        while(lengthOfPhoneNumber(sdt) != 9){
+            System.out.println("So dien thoai phai co 9 so (khong bao gom so 0 dau tien), vui long nhap lai!");
+            System.out.print("Nhap so dien thoai: ");
+            sdt = sc.nextInt();
+            sc.nextLine();
+        }
+
+        for (NhanVien nv : dsnv) {
+            if (nv.getsdt() == sdt) 
+                return nv;
+        }
+        return null;
+    }
+
+    public int lengthOfPhoneNumber(int sdt){
+        int cntLengthOfPhoneNumber = 0;
+        while(sdt > 0){
+            cntLengthOfPhoneNumber++;
+            sdt /= 10;
+        }
+        return cntLengthOfPhoneNumber;
+    }
+
+    public void docfile() {
+        try { 
+            BufferedReader read = new BufferedReader(new FileReader("D:\\JAVA\\OOP\\QuanLyTour\\DanhSachNhanVien.txt"));
+            String line;
+
+            while ((line = read.readLine()) != null) {
+                String[] parts = line.split(",");
+                // Loại bỏ nvoảng trắng dư
+                for (int i=0; i<parts.length; i++) {
+                    parts[i] = parts[i].trim();
+                }
+
+                if (parts.length == 5) {
+                    String manv = parts[0];
+                    String hoten = parts[1];
+                    String gioitinh = parts[2];
+                    int tuoi = Integer.parseInt(parts[3]);
+                    int sdt = Integer.parseInt(parts[4]);
+
+                    NhanVien nv = new NhanVien(manv, hoten, gioitinh, tuoi, sdt);
+                    dsnv.add(nv);
+                }
+            }
+            read.close();
+        } 
+        catch (Exception e) {
+            System.out.println("Loi khi doc file: " + e);
+        }
+    }
+    public void ghifile() {
+        try {
+            FileWriter fw = new FileWriter("D:\\JAVA\\OOP\\QuanLyTour\\DanhSachNhanVien.txt");
+            for (NhanVien nv : dsnv) {
+                fw.write(nv.getmanv() + ", " + nv.gethoten() + ", " + nv.getgioitinh() + ", " + nv.gettuoi() + ", " + nv.getsdt() + "\n");
+            }
+            fw.close();
+        } 
+        catch (Exception e) {
+            System.out.println("Loi khi ghi file: " + e);
+        }
+    }
+}
