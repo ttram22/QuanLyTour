@@ -6,6 +6,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 
 import static QuanLyTour.Input.sc;
+
 public class DanhSachKhachHang implements IQuanLy<KhachHang> {
     ArrayList<KhachHang> dskh = new ArrayList<>();
     
@@ -22,6 +23,14 @@ public class DanhSachKhachHang implements IQuanLy<KhachHang> {
     }
     public void xoa(String makh) {
         boolean found = false;
+        //them rang buoc makh de tim kiem
+        while(makh.trim().equals("")){
+            System.out.print("Ma khach hang nhap vao khong duoc de trong, vui long nhap lai: ");
+            makh = sc.nextLine();
+        }
+        makh = makh.trim();
+
+        boolean found = false;
         for (KhachHang kh : dskh) {
             if (kh.getmakh().equalsIgnoreCase(makh)) {
                 dskh.remove(kh);
@@ -36,6 +45,13 @@ public class DanhSachKhachHang implements IQuanLy<KhachHang> {
             System.out.println("Da xoa thanh cong khach hang co ma: " + makh); 
     }
     public void sua(String makh) {
+        //them rang buoc makh de tim kiem
+        while(makh.trim().equals("")){
+            System.out.print("Ma khach hang nhap vao khong duoc de trong, vui long nhap lai: ");
+            makh = sc.nextLine();
+        }
+        makh = makh.trim();
+
         boolean found = false;
         for (KhachHang kh : dskh) {
             if (kh.getmakh().equalsIgnoreCase(makh)) {
@@ -52,6 +68,12 @@ public class DanhSachKhachHang implements IQuanLy<KhachHang> {
                     case 1:
                         System.out.print("Nhap ho ten moi: ");
                         String hoten = sc.nextLine();
+                        while(hoten.trim().equals("")){
+                            System.out.print("Ho ten nhap vao khong duoc de trong, nhap lai: ");
+                            hoten = sc.nextLine();
+                        }
+                        hoten = hoten.trim();
+
                         if (kh.gethoten().equals(hoten)) {
                             System.out.println("Thong tin moi phai khac thong tin cu.");
                             return;
@@ -64,6 +86,12 @@ public class DanhSachKhachHang implements IQuanLy<KhachHang> {
                     case 2:
                         System.out.print("Nhap gioi tinh moi: ");
                         String gioitinh = sc.nextLine();
+                        while(gioitinh.trim().equals("")){
+                            System.out.print("Ho ten nhap vao khong duoc de trong, nhap lai: ");
+                            gioitinh = sc.nextLine();
+                        }
+                        gioitinh = gioitinh.trim();
+
                         if (kh.getgioitinh().equals(gioitinh)) {
                             System.out.println("Thong tin moi phai khac thong tin cu.");
                         }
@@ -75,6 +103,11 @@ public class DanhSachKhachHang implements IQuanLy<KhachHang> {
                     case 3:
                         System.out.print("Nhap tuoi moi: ");
                         int tuoi = sc.nextInt();
+                        while (tuoi < 0) {
+                            System.out.print("Tuoi nhap vao khong duoc nho hon 0, nhap lai: ");
+                            tuoi = sc.nextInt();
+                            sc.nextLine();
+                        }
                         if (kh.gettuoi() == tuoi) {
                             System.out.println("Thong tin moi phai khac thong tin cu.");
                         }
@@ -106,6 +139,12 @@ public class DanhSachKhachHang implements IQuanLy<KhachHang> {
             System.out.println("Sua thong tin khach hang thanh cong!");
     }
     public KhachHang timkiem(String makh) {
+        //them rang buoc makh de tim kiem
+        while(makh.trim().equals("")){
+            System.out.print("Ma khach hang nhap vao khong duoc de trong, vui long nhap lai: ");
+            makh = sc.nextLine();
+        }
+        makh = makh.trim();
         for (KhachHang kh : dskh) {
             if (kh.getmakh().equalsIgnoreCase(makh)) 
                 return kh;
@@ -115,6 +154,13 @@ public class DanhSachKhachHang implements IQuanLy<KhachHang> {
     
     //  TÌM KIẾM NÂNG CAO
     public KhachHang timkiemten(String ten) {
+        //them rang buoc ten tim kiem
+        while(ten.trim().equals("")){
+            System.out.print("Ten nhap vao khong duoc de trong, vui long nhap lai: ");
+            ten = sc.nextLine();
+        }
+        ten = ten.trim().replace("\\+", "");
+
         for (KhachHang kh : dskh) {
             if (kh.gethoten().equalsIgnoreCase(ten)) 
                 return kh;
@@ -123,11 +169,26 @@ public class DanhSachKhachHang implements IQuanLy<KhachHang> {
         return null;
     }
     public KhachHang timkiemsdt(int sdt) {
+        while(lengthOfPhoneNumber(sdt) != 9){
+            System.out.println("So dien thoai phai co 9 so (khong bao gom so 0 dau tien), vui long nhap lai!");
+            System.out.print("Nhap so dien thoai: ");
+            sdt = sc.nextInt();
+            sc.nextLine();
+        }
         for (KhachHang kh : dskh) {
             if (kh.getsdt() == (sdt))
                 return kh;
         }
         return null;
+    }
+
+    public int lengthOfPhoneNumber(int sdt){
+        int cntLengthOfPhoneNumber = 0;
+        while(sdt > 0){
+            cntLengthOfPhoneNumber++;
+            sdt /= 10;
+        }
+        return cntLengthOfPhoneNumber;
     }
 
     public void docfile() {
