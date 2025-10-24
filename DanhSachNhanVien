@@ -21,6 +21,13 @@ public class DanhSachNhanVien implements IQuanLy<NhanVien> {
         System.out.println("Them nhan vien thanh cong!");
     }
     public void xoa(String manv) {
+        //them rang buoc manv de tim kiem
+        while(manv.trim().equals("")){
+            System.out.print("Ma nhan vien nhap vao khong duoc de trong, vui long nhap lai: ");
+            manv = sc.nextLine();
+        }
+        manv = manv.trim();
+
         boolean found = false;
         for (NhanVien nv : dsnv) {
             if (nv.getmanv().equalsIgnoreCase(manv)) {
@@ -36,6 +43,13 @@ public class DanhSachNhanVien implements IQuanLy<NhanVien> {
             System.out.println("Da xoa thanh cong nhan vien co ma: " + manv);          
     }
     public void sua(String manv) {
+        //them rang buoc manv de tim kiem
+        while(manv.trim().equals("")){
+            System.out.print("Ma nhan vien nhap vao khong duoc de trong, vui long nhap lai: ");
+            manv = sc.nextLine();
+        }
+        manv = manv.trim();
+
         boolean found = false;
         for (NhanVien nv : dsnv) {
             if (nv.getmanv().equalsIgnoreCase(manv)) {
@@ -51,18 +65,35 @@ public class DanhSachNhanVien implements IQuanLy<NhanVien> {
                     case 1:
                         System.out.print("Nhap ho ten moi: ");
                         String hoten = sc.nextLine();
+                        while(hoten.trim().equals("")){
+                            System.out.print("Ho ten nhap vao khong duoc de trong, nhap lai: ");
+                            hoten = sc.nextLine();
+                        }
+                        hoten = hoten.trim();
                         nv.sethoten(hoten);
                         ghifile();
                         break;
                     case 2:
                         System.out.print("Nhap gioi tinh moi: ");
                         String gioitinh = sc.nextLine();
+                        while(gioitinh.trim().equals("")){
+                            System.out.print("Ho ten nhap vao khong duoc de trong, nhap lai: ");
+                            gioitinh = sc.nextLine();
+                        }
+                        gioitinh = gioitinh.trim();
+
                         nv.setgioitinh(gioitinh);
                         ghifile();
                         break;
                     case 3:
                         System.out.print("Nhap tuoi moi: ");
                         int tuoi = sc.nextInt();
+                        while (tuoi < 0) {
+                            System.out.print("Tuoi nhap vao khong duoc nho hon 0, nhap lai: ");
+                            tuoi = sc.nextInt();
+                            sc.nextLine();
+                        }
+
                         nv.settuoi(tuoi);
                         ghifile();
                         break;
@@ -85,6 +116,13 @@ public class DanhSachNhanVien implements IQuanLy<NhanVien> {
             System.out.println("Sua thong tin thanh cong!");
     }
     public NhanVien timkiem(String manv) {
+        //them rang buoc ma de tim kiem
+        while(manv.trim().equals("")){
+            System.out.print("Ma nhan vien nhap vao khong duoc de trong, vui long nhap lai: ");
+            manv = sc.nextLine();
+        }
+        manv = manv.trim();
+
         for (NhanVien nv : dsnv) {
             if (nv.getmanv().equalsIgnoreCase(manv)) {
                 return nv;
@@ -95,6 +133,13 @@ public class DanhSachNhanVien implements IQuanLy<NhanVien> {
     
     //  TÌM KIẾM NÂNG CAO
     public NhanVien timkiemten(String ten) {
+        //them rang buoc ten de tim kiem
+        while(ten.trim().equals("")){
+            System.out.print("Ten nhap vao khong duoc de trong, vui long nhap lai: ");
+            ten = sc.nextLine();
+        }
+        ten = ten.trim().replace("\\+", "");
+
         for (NhanVien nv : dsnv) {
             if (nv.gethoten().equalsIgnoreCase(ten)) 
                 return nv;
@@ -102,11 +147,28 @@ public class DanhSachNhanVien implements IQuanLy<NhanVien> {
         return null;
     }
     public NhanVien timkiemsdt(int sdt) {
+        // them rang buoc tim kiem theo sdt 
+        while(lengthOfPhoneNumber(sdt) != 9){
+            System.out.println("So dien thoai phai co 9 so (khong bao gom so 0 dau tien), vui long nhap lai!");
+            System.out.print("Nhap so dien thoai: ");
+            sdt = sc.nextInt();
+            sc.nextLine();
+        }
+
         for (NhanVien nv : dsnv) {
             if (nv.getsdt() == sdt) 
                 return nv;
         }
         return null;
+    }
+
+    public int lengthOfPhoneNumber(int sdt){
+        int cntLengthOfPhoneNumber = 0;
+        while(sdt > 0){
+            cntLengthOfPhoneNumber++;
+            sdt /= 10;
+        }
+        return cntLengthOfPhoneNumber;
     }
 
     public void docfile() {
