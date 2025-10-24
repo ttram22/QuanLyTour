@@ -35,6 +35,13 @@ public class DanhSachTour implements IQuanLy<Tour> {
         ghifile();
     }
     public void sua(String ma) {
+        //them rang buoc ma de tim kiem
+        while(ma.trim().equals("")){
+            System.out.print("Ma nhap vao khong duoc de trong, vui long nhap lai: ");
+            ma = sc.nextLine();
+        }
+        ma = ma.trim();
+
         boolean found = false;
         for (Tour t : dstour) {
             if (t.getmatour().equalsIgnoreCase(ma)) {
@@ -51,6 +58,12 @@ public class DanhSachTour implements IQuanLy<Tour> {
                     case 1:
                         System.out.print("Nhap ten tour moi: ");
                         String tenTour = sc.nextLine();
+                        while(tenTour.trim().equals("")){
+                            System.out.print("Ten tour nhap vao khong duoc de trong, nhap lai: ");
+                            tenTour = sc.nextLine();
+                        }
+                        tenTour = tenTour.trim();
+                        
                         if (t.gettentour().equalsIgnoreCase(tenTour)) {
                             System.out.println("Thong tin moi phai khac thong tin cu.");
                         }
@@ -62,6 +75,12 @@ public class DanhSachTour implements IQuanLy<Tour> {
                     case 2:
                         System.out.print("Nhap noi khoi hanh moi: ");
                         String noiKhoiHanh = sc.nextLine();
+                        while(noiKhoiHanh.trim().equals("")){
+                            System.out.print("Noi khoi hanh nhap vao khong duoc de trong, nhap lai: ");
+                            noiKhoiHanh = sc.nextLine();
+                        }
+                        noiKhoiHanh = noiKhoiHanh.trim();
+
                         if (t.getnoikhoihanh().equalsIgnoreCase(noiKhoiHanh)) {
                             System.out.println("Thong tin moi phai khac thong tin cu.");
                         }
@@ -73,7 +92,8 @@ public class DanhSachTour implements IQuanLy<Tour> {
                     case 3:
                         System.out.print("Nhap ngay khoi hanh moi: ");
                         String ngayKhoiHanh = sc.nextLine();
-                        if (t.getngaykhoihanh().equalsIgnoreCase(ngayKhoiHanh)) {
+                        LocalDate ngayKhoiHanh_date = LocalDate.parse(ngayKhoiHanh, t.formatter);
+                        if (t.getngaykhoihanh().equals(ngayKhoiHanh_date)) {
                             System.out.println("Thong tin moi phai khac thong tin cu.");
                         }
                         else {
@@ -84,7 +104,8 @@ public class DanhSachTour implements IQuanLy<Tour> {
                     case 4:
                         System.out.print("Nhap ngay ve moi: ");
                         String ngayVe = sc.nextLine();
-                        if (t.getngayve().equalsIgnoreCase(ngayVe)) {
+                        LocalDate ngayVe_date = LocalDate.parse(ngayVe, t.formatter);
+                        if (t.getngayve().equals(ngayVe_date)) {
                             System.out.println("Thong tin moi phai khac thong tin cu.");
                         }
                         else {
@@ -115,6 +136,13 @@ public class DanhSachTour implements IQuanLy<Tour> {
             System.out.println("Sua thong tin tour thanh cong!");
     }
     public void xoa(String ma) {
+        //them rang buoc ma de tim kiem
+        while(ma.trim().equals("")){
+            System.out.print("Ma tour nhap vao khong duoc de trong, vui long nhap lai: ");
+            ma = sc.nextLine();
+        }
+        ma = ma.trim();
+        
         Tour tourXoa = null;
         for (Tour t : dstour) {
             if (t.getmatour().equals(ma)) {
@@ -132,6 +160,12 @@ public class DanhSachTour implements IQuanLy<Tour> {
         }
     }
     public Tour timkiem(String ma) {
+        //them rang buoc ma de tim kiem
+        while(ma.trim().equals("")){
+            System.out.print("Ma tour nhap vao khong duoc de trong, vui long nhap lai: ");
+            ma = sc.nextLine();
+        }
+        ma = ma.trim();
         for (Tour t : dstour) {
             if (t.getmatour().equalsIgnoreCase(ma)) {
                 return t;
@@ -142,6 +176,13 @@ public class DanhSachTour implements IQuanLy<Tour> {
 
     // TÌM KIẾM NÂNG CAO
     public Tour timkiemten(String ten) {
+        // them rang buoc tim kiem theo ten
+        while(ten.trim().equals("")){
+            System.out.print("Ten tour nhap vao khong duoc de trong, vui long nhap lai: ");
+            ten = sc.nextLine();
+        }
+        ten = ten.trim().replaceAll("\\s+", " ");
+
         for (Tour t : dstour) {
             if (t.gettentour().equalsIgnoreCase(ten))
                 return t;
@@ -150,6 +191,17 @@ public class DanhSachTour implements IQuanLy<Tour> {
     }
     public ArrayList<Tour> timkiemgia(int min, int max) {
         ArrayList<Tour> tourtim = new ArrayList<>();
+        //them rang buoc cho khoang gia
+        while(min < 0){
+            System.out.print("Khoang gia bat dau khong duoc nho hon 0, vui long nhap lai: ");
+            min = sc.nextInt();
+            sc.nextLine();
+        }
+        while (max < 0 || max < min) {
+            System.out.print("Khoang gia ket thuc khong duoc nho hon 0 va phai lon hon khoang gia bat dau, vui long nhap lai: ");
+            max = sc.nextInt();
+            sc.nextLine();
+        }
 
         for (Tour t : dstour) {
             if (t.getgia() >= min && t.getgia() <= max)  {
@@ -161,7 +213,13 @@ public class DanhSachTour implements IQuanLy<Tour> {
     }
     public ArrayList<Tour> timkiemloaitour(String loai) {
         ArrayList<Tour> tourtim = new ArrayList<>();
-
+        // them rang buoc loai tour
+        while(loai.trim().equals("")){
+            System.out.print("Loai tour nhap vao khong duoc de trong, vui long nhap lai: ");
+            loai = sc.nextLine();
+        }
+        loai = loai.trim().replaceAll("\\s+", " ");
+        
         for (Tour t : dstour) {
             if ((loai.equalsIgnoreCase("tour trong nuoc") || loai.equalsIgnoreCase("tourtrongnuoc")) && t instanceof TourTrongNuoc) {
                 tourtim.add(t);
@@ -190,8 +248,8 @@ public class DanhSachTour implements IQuanLy<Tour> {
                 String ma = parts[0];
                 String ten = parts[1];
                 String noikhoihanh = parts[2];
-                String ngaykhoihanh = parts[3];
-                String ngayve = parts[4];
+                LocalDate ngaykhoihanh = LocalDate.parse(parts[3]);
+                LocalDate ngayve = LocalDate.parse(parts[4]);
                 int gia = Integer.parseInt(parts[5]);
                 String khuvucden = parts[6];
                 String diemden = parts[7];
@@ -209,7 +267,6 @@ public class DanhSachTour implements IQuanLy<Tour> {
                     them(ttn);
                 } 
             }
-
             br.close();
         }
         catch (Exception e) {
